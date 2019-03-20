@@ -10,6 +10,7 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 		glfwSetWindowShouldClose(window, GL_TRUE);
 }
 
+
 int main()
 {
 	glfwInit();
@@ -24,7 +25,7 @@ int main()
 	GLFWwindow *window = glfwCreateWindow(800, 600, "Learn OpenGL", nullptr, nullptr);
 	if (window == nullptr)
 	{
-		std::cout << "Failed to create GLFW window!" << std::endl;
+		std::cout << "Failed to create GLFW window" << std::endl;
 		glfwTerminate();
 		return -1;
 	}
@@ -33,7 +34,7 @@ int main()
 	glewExperimental = GL_TRUE;
 	if (glewInit() != GLEW_OK)
 	{
-		std::cout << "Failed to initialize GLEW!" << std::endl;
+		std::cout << "Failed to initialize GLEW" << std::endl;
 		return -1;
 	}
 
@@ -46,10 +47,10 @@ int main()
 	Shader our_shader("shader_v.glsl", "shader_f.glsl");
 
 	GLfloat vertices[] = {
-		// positions        // colors
-		-0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f,
-		 0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 0.0f,
-		 0.0f,  0.5f, 0.0f, 0.0f, 0.0f, 1.0f
+		// positions			// colors
+		-1.0f, -1.0f, 0.0f,		1.0f, 0.0f, 0.0f,
+		 0.5f, -0.5f, 0.0f,		0.0f, 1.0f, 0.0f,
+		 0.0f,  0.5f, 0.0f,		0.0f, 0.0f, 1.0f
 	};
 
 	GLuint VAO, VBO;
@@ -76,7 +77,7 @@ int main()
 	while (!glfwWindowShouldClose(window))
 	{
 		glfwPollEvents();
-		glClearColor(.2f, .3f, .3f, 1.f);
+		glClearColor(.1f, .1f, .1f, 1.f);
 		glClear(GL_COLOR_BUFFER_BIT);
 
 		// use shader program
