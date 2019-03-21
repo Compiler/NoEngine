@@ -1,8 +1,9 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <cmath>
-
+#include <glm/vec3.hpp>
 #include "Shader.h"
+#include "Triangle.h"
 
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode){
 	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
@@ -52,7 +53,6 @@ int main(){
 
 
 
-
 	GLuint VAO, VBO;
 	glGenBuffers(1, &VBO);
 	glGenVertexArrays(1, &VAO);
@@ -96,6 +96,9 @@ int main(){
 	glDeleteBuffers(1, &VBO);
 	// terminate GLFW
 	glfwTerminate();
+
+	std::cout << "uh";
+
 
 	return 0;
 }
