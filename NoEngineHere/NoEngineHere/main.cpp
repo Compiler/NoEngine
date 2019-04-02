@@ -27,7 +27,9 @@ int main(){
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
 	GLFWwindow *window = glfwCreateWindow(800, 600, "NoEngine ", nullptr, nullptr);//returns pointer to GLFWwindow object
-
+	glEnable(GL_DEPTH_TEST);
+	// Accept fragment if it closer to the camera than the former one
+	glDepthFunc(GL_LESS);
 	//make sure window creation worked
 	if (window == nullptr){
 		std::cout << "Failed to create GLFW window" << std::endl;
@@ -56,11 +58,12 @@ int main(){
 
 	GLfloat vertices[] = {
 		// positions	
-		 -0.5f, -0.5f, 0.0f,	0.0f, -0.5f, 0.0f,	0.0f, 0.5f, 0.25f,
-		 -0.5f, -0.5f, 0.0f,	0.0f, 0.5f, 0.5f,	0.0f, 0.5f, 0.25f,
-		 0.0f, -0.5f, 0.0f,		0.5f, -0.5f, 0.0f,	0.0f, 0.5f, 0.25f,
-		 0.5f, -0.5f, 0.0f,		0.0f, 0.5f, 0.5f,	0.0f, 0.5f, 0.25f,
-		 -0.5f, -0.5f, 0.0f,	0.5f, -0.5f, 0.0f,	0.0f, 0.5f, 0.5f
+		 -0.5f, -0.5f, 0.0f,	 1.f,1.f,1.f,	0.5f, -0.5f, 0.0f,	 1.f,1.f,1.f,	0.0f, 0.5f, 0.25f,	 1.f,1.f,1.f,
+		 -0.5f, -0.5f, 0.0f,	 1.f,0.f,0.f,	0.0f, 0.5f, 0.5f,	 1.f,0.f,0.f,	0.0f, 0.5f, 0.25f,	 1.f,0.f,0.f,
+		 0.5f, -0.5f, 0.0f,		 0.f,1.f,0.f,	0.5f, -0.5f, 0.0f,	 0.f,1.f,0.f,	0.0f, 0.5f, 0.25f,	  0.f,1.f,0.f,
+		 0.5f, -0.5f, 0.0f,		 0.f,0.f,1.f,	0.0f, 0.5f, 0.5f,	 0.f,0.f,1.f,	0.0f, 0.5f, 0.25f,	 0.f,0.f,1.f,
+		 -0.5f, -0.5f, 0.0f,	0.f,1.f,1.f,	0.5f,-0.5f, 0.0f,	0.f,1.f,1.f,	0.0f, 0.5f, 0.5f,	0.f,1.f,1.f
+		
 		 //0.75f, 0.75f, 0.0f,	1.0f, 0.75f, 0.0f,	0.875f, 1.0f, 0.0f
 	};
 
@@ -79,15 +82,18 @@ int main(){
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
 	// set position attribute pointers
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (GLvoid*)0);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GL_FLOAT), (GLvoid*)0);
 	glEnableVertexAttribArray(0);
+
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GL_FLOAT), (GLvoid*)(3 * sizeof(GL_FLOAT)));
+	glEnableVertexAttribArray(1);
 
 	// unbind the vertex array object
 	glBindVertexArray(0);
 
 
 	glm::mat4 model = glm::mat4(1.0f);
-	model = glm::rotate(model, glm::radians(45.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+	model = glm::rotate(model, glm::radians(45.0f), glm::vec3(.0f, 1.0f, .0f));
 	glm::mat4 view = glm::mat4(1.0f);
 	// note that we're translating the scene in the reverse direction of where we want to move
 	view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
@@ -104,9 +110,9 @@ int main(){
 			std::cout << "w action" << std::endl;
 		glfwPollEvents();
 		glClearColor(.1f, .1f, .1f, 1.f);
-		glClear(GL_COLOR_BUFFER_BIT);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		//model = glm::rotate(model, (float)glfwGetTime() / 1000.0f, glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::rotate(model, (float)glfwGetTime() / 1000.0f, glm::vec3(1.0f, 0.0f, 1.0f));
 		int modelLoc = glGetUniformLocation(ourShader.program, "model");
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		int viewLoc = glGetUniformLocation(ourShader.program, "view");
@@ -124,7 +130,7 @@ int main(){
 
 		// draw
 		glBindVertexArray(VAO);
-		glDrawArrays(GL_TRIANGLES, 0, 15);
+		glDrawArrays(GL_TRIANGLES, 0, 3*60000);
 		glBindVertexArray(0);
 
 		glfwSwapBuffers(window);
