@@ -8,7 +8,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-bool w_pressed;
+bool w_pressed, s_pressed, a_pressed, d_pressed;
 
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode){
 	if(key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
@@ -17,6 +17,21 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 		w_pressed = true;
 	if(key == GLFW_KEY_W && action == GLFW_RELEASE)
 		w_pressed = false;
+
+	if(key == GLFW_KEY_S && action == GLFW_PRESS)
+		s_pressed = true;
+	if(key == GLFW_KEY_S && action == GLFW_RELEASE)
+		s_pressed = false;
+
+	if(key == GLFW_KEY_A && action == GLFW_PRESS)
+		a_pressed = true;
+	if(key == GLFW_KEY_A && action == GLFW_RELEASE)
+		a_pressed = false;
+
+	if(key == GLFW_KEY_D && action == GLFW_PRESS)
+		d_pressed = true;
+	if(key == GLFW_KEY_D && action == GLFW_RELEASE)
+		d_pressed = false;
 }
 
 
@@ -57,22 +72,33 @@ int main(){
 	
 
 	GLfloat vertices[] = {
+		// cubic : spot
+
+		 0, 0, 1,	1, 0, 0,	0, 0, -1,	//red
+		 0, 0, 1,	-1, 0, 0,	0, 0, -1		//green
+	};
+
+	GLfloat colors[] = {
 		// positions	
-		 -0.5f, -0.5f, 0.0f,	 1.f,1.f,1.f,	0.5f, -0.5f, 0.0f,	 1.f,1.f,1.f,	0.0f, 0.5f, 0.25f,	 1.f,1.f,1.f,
-		 -0.5f, -0.5f, 0.0f,	 1.f,0.f,0.f,	0.0f, 0.5f, 0.5f,	 1.f,0.f,0.f,	0.0f, 0.5f, 0.25f,	 1.f,0.f,0.f,
-		 0.5f, -0.5f, 0.0f,		 0.f,1.f,0.f,	0.5f, -0.5f, 0.0f,	 0.f,1.f,0.f,	0.0f, 0.5f, 0.25f,	  0.f,1.f,0.f,
-		 0.5f, -0.5f, 0.0f,		 0.f,0.f,1.f,	0.0f, 0.5f, 0.5f,	 0.f,0.f,1.f,	0.0f, 0.5f, 0.25f,	 0.f,0.f,1.f,
-		 -0.5f, -0.5f, 0.0f,	0.f,1.f,1.f,	0.5f,-0.5f, 0.0f,	0.f,1.f,1.f,	0.0f, 0.5f, 0.5f,	0.f,1.f,1.f
-		
-		 //0.75f, 0.75f, 0.0f,	1.0f, 0.75f, 0.0f,	0.875f, 1.0f, 0.0f
+		 1,0,0,	1,0,0, 1,0,0,    0,1,0, 0,1,0, 0,1,0,	//0,0,1, 0,0,1, 0,0,1,
+		// 1,1,0, 1,1,0, 1,1,0,    0,1,1, 0,1,1, 0,1,1
+		 // 0.5f, -0.5f, 0.0f,    	0.5f, -0.5f, 0.0f,	0.0f, 0.5f, 0.25f,	  
+		 // 0.5f, -0.5f, 0.0f,		 0.f,0.f,1.f,	0.0f, 0.5f, 0.5f,	 0.f,0.f,1.f,	0.0f, 0.5f, 0.25f,	 0.f,0.f,1.f,
+		 //-0.5f, -0.5f, 0.0f,	0.f,1.f,1.f,	0.5f,-0.5f, 0.0f,	0.f,1.f,1.f,	0.0f, 0.5f, 0.5f,	0.f,1.f,1.f
+
+		  //0.75f, 0.75f, 0.0f,	1.0f, 0.75f, 0.0f,	0.875f, 1.0f, 0.0f
 	};
 
 
+	//fhg
 
-
-	GLuint VAO, VBO;
+	GLuint VAO, VBO, cBO;
 	glGenBuffers(1, &VBO);
+	glGenBuffers(1, &cBO);
+
 	glGenVertexArrays(1, &VAO);
+	glBindBuffer(GL_ARRAY_BUFFER, cBO);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(colors), colors, GL_STATIC_DRAW);
 
 	// bind vertex array object
 	glBindVertexArray(VAO);
@@ -82,37 +108,60 @@ int main(){
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
 	// set position attribute pointers
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GL_FLOAT), (GLvoid*)0);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0 * sizeof(GL_FLOAT), (GLvoid*)0);
 	glEnableVertexAttribArray(0);
 
-	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GL_FLOAT), (GLvoid*)(3 * sizeof(GL_FLOAT)));
+	
+	glBindBuffer(GL_ARRAY_BUFFER, cBO);
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0 * sizeof(GL_FLOAT), (GLvoid*)(0 * sizeof(GL_FLOAT)));
 	glEnableVertexAttribArray(1);
-
 	// unbind the vertex array object
 	glBindVertexArray(0);
 
 
 	glm::mat4 model = glm::mat4(1.0f);
-	model = glm::rotate(model, glm::radians(45.0f), glm::vec3(.0f, 1.0f, .0f));
+	model = glm::rotate(model, glm::radians(45.f), glm::vec3(1.0f, -1.0f, 0.0f));
 	glm::mat4 view = glm::mat4(1.0f);
+
+
 	// note that we're translating the scene in the reverse direction of where we want to move
-	view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
+	glm::vec3 cpos = glm::vec3(0.0f, 0.0f, -3.0f);
+	view = glm::translate(view, cpos);
 
 	glm::mat4 projection = glm::mat4(1.0f);
 	projection = glm::perspective(glm::radians(45.0f), (float)800 / (float)600, 0.1f, 100.0f);
 
 
 	
+	GLfloat speed = 0.005f;
+
 
 	while (!glfwWindowShouldClose(window))
 	{
-		if(w_pressed)
+		if(w_pressed){
 			std::cout << "w action" << std::endl;
+			view = glm::translate(view, glm::vec3(0, 0, speed));
+		}
+		if(s_pressed){
+			std::cout << "s action" << std::endl;
+			view = glm::translate(view, glm::vec3(0, 0, -speed * 8));
+		}
+		if(a_pressed){
+			std::cout << "a action" << std::endl;
+			model = glm::rotate(model, glm::radians(speed * 100), glm::vec3(0.0f, -1.0f, 0.0f));
+
+		}
+		if(d_pressed){
+			std::cout << "d action" << std::endl;
+			model = glm::rotate(model, glm::radians(speed * 100), glm::vec3(0.0f, 1.0f, 0.0f));
+
+		}
+
 		glfwPollEvents();
 		glClearColor(.1f, .1f, .1f, 1.f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-		model = glm::rotate(model, (float)glfwGetTime() / 1000.0f, glm::vec3(1.0f, 0.0f, 1.0f));
+		
+		//model = glm::rotate(model, (float)glfwGetTime() / 1000.0f, glm::vec3(1.0f, 0.0f, 1.0f));
 		int modelLoc = glGetUniformLocation(ourShader.program, "model");
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		int viewLoc = glGetUniformLocation(ourShader.program, "view");
@@ -130,7 +179,7 @@ int main(){
 
 		// draw
 		glBindVertexArray(VAO);
-		glDrawArrays(GL_TRIANGLES, 0, 3*60000);
+		glDrawArrays(GL_TRIANGLES, 0, 4*3);
 		glBindVertexArray(0);
 
 		glfwSwapBuffers(window);
