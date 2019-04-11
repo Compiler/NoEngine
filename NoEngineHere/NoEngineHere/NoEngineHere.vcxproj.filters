@@ -24,9 +24,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="PerspectiveCamera.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -39,11 +36,11 @@
     <ClCompile Include="src\Rendering\Shaders\Shader.cpp">
       <Filter>Source Files\Shading</Filter>
     </ClCompile>
+    <ClCompile Include="src\Rendering\Camera\PerspectiveCamera.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="PerspectiveCamera.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\Rendering\ShapeRenderer\Triangle.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -52,6 +49,12 @@
     </ClInclude>
     <ClInclude Include="src\Rendering\Shaders\Shader.h">
       <Filter>Source Files\Shading</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Rendering\Camera\Camera.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Rendering\Camera\PerspectiveCamera.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

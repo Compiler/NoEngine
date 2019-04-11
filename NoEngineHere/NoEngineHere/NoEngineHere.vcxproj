@@ -129,13 +129,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp" />
-    <ClCompile Include="PerspectiveCamera.cpp" />
+    <ClCompile Include="src\Rendering\Camera\PerspectiveCamera.cpp" />
     <ClCompile Include="src\Rendering\ShapeRenderer\Rectangle.cpp" />
     <ClCompile Include="src\Rendering\Shaders\Shader.cpp" />
     <ClCompile Include="src\Rendering\ShapeRenderer\Triangle.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="PerspectiveCamera.h" />
+    <ClInclude Include="src\Rendering\Camera\Camera.h" />
+    <ClInclude Include="src\Rendering\Camera\PerspectiveCamera.h" />
     <ClInclude Include="src\Rendering\ShapeRenderer\Rectangle.h" />
     <ClInclude Include="src\Rendering\Shaders\Shader.h" />
     <ClInclude Include="src\Rendering\ShapeRenderer\Triangle.h" />

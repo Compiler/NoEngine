@@ -178,7 +178,7 @@ int main(){
 			}
 			if(a_pressed){
 				std::cout << "a action" << std::endl;
-				model = glm::rotate(model, glm::radians(speed * 100), glm::vec3(0.0f, -1.0f, 0.0f));
+				projection = glm::rotate(projection, glm::radians(speed * 100), glm::vec3(0.0f, -1.0f, 0.0f));
 
 			}
 			if(d_pressed){
