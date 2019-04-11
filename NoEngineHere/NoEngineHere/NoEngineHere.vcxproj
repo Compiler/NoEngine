@@ -128,21 +128,23 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="Rectangle.cpp" />
-    <ClCompile Include="Shader.cpp" />
-    <ClCompile Include="Triangle.cpp" />
+    <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="PerspectiveCamera.cpp" />
+    <ClCompile Include="src\Rendering\ShapeRenderer\Rectangle.cpp" />
+    <ClCompile Include="src\Rendering\Shaders\Shader.cpp" />
+    <ClCompile Include="src\Rendering\ShapeRenderer\Triangle.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Rectangle.h" />
-    <ClInclude Include="Shader.h" />
-    <ClInclude Include="Triangle.h" />
+    <ClInclude Include="PerspectiveCamera.h" />
+    <ClInclude Include="src\Rendering\ShapeRenderer\Rectangle.h" />
+    <ClInclude Include="src\Rendering\Shaders\Shader.h" />
+    <ClInclude Include="src\Rendering\ShapeRenderer\Triangle.h" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="shader_v.glsl" />
+    <Text Include="src\Rendering\Shaders\glsl\shader_v.glsl" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="shader_f.glsl" />
+    <None Include="src\Rendering\Shaders\glsl\shader_f.glsl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
