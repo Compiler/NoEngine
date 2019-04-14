@@ -1,22 +1,26 @@
 #pragma once
 
 #include <glm/vec3.hpp>
+#include "Shape.h"
+namespace noe{
 
-class Triangle
-{
-public:
-	Triangle();
-	Triangle(glm::vec3 vertex1, glm::vec3 vertex2, glm::vec3 vertex3);
+	class Triangle : Shape{
+	public:
+		Triangle();
+		Triangle(glm::vec3 vertex1, glm::vec3 vertex2, glm::vec3 vertex3);
 
-
-
-
-	~Triangle();
+		void setVertices(std::vector<glm::vec3> vertices);
 
 
-private:
-	
-	glm::vec3* positions = new glm::vec3[3];
 
-};
+
+		~Triangle();
+
+
+	private:
+		const char VERT_COUNT = 3;
+
+	};
+
+}
 

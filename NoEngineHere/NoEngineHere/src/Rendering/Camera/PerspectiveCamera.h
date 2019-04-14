@@ -1,11 +1,12 @@
 #pragma once
 
 #include "Camera.h"
-
-class PerspectiveCamera : Camera{
+namespace noe{
+	class PerspectiveCamera: Camera{
 
 	public:
 		PerspectiveCamera();
 		~PerspectiveCamera();
-};
+	};
+}
 

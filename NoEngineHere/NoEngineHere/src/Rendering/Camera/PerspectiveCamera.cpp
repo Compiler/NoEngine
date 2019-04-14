@@ -2,9 +2,9 @@
 
 
 
-PerspectiveCamera::PerspectiveCamera(){
-}
+//noe::PerspectiveCamera::PerspectiveCamera(){
+//}
 
 
-PerspectiveCamera::~PerspectiveCamera(){
+noe::PerspectiveCamera::~PerspectiveCamera(){
 }

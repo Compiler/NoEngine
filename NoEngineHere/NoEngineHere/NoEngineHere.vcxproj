@@ -139,6 +139,8 @@
     <ClInclude Include="src\Rendering\Camera\PerspectiveCamera.h" />
     <ClInclude Include="src\Rendering\ShapeRenderer\Rectangle.h" />
     <ClInclude Include="src\Rendering\Shaders\Shader.h" />
+    <ClInclude Include="src\Rendering\ShapeRenderer\Shape.h" />
+    <ClInclude Include="src\Rendering\ShapeRenderer\ShapeBatch.h" />
     <ClInclude Include="src\Rendering\ShapeRenderer\Triangle.h" />
   </ItemGroup>
   <ItemGroup>

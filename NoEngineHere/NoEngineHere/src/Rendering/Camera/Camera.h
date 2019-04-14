@@ -4,22 +4,31 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-class Camera{
+namespace noe{
 
-public:
+	class Camera{
 
-	//	translate x,y,z amount
-	virtual void translate(glm::vec3 translation) = 0;
+	public:
 
-	/*	rotate angleRadians around axisOfRotation
-		example: 45, (1,0,0) = 45 degrees around x axis	*/
-	virtual void rotate(float angleRadians, glm::vec3 axisOfRotation) = 0;
+		Camera() = delete;
 
+		//	translate x,y,z amount
+		virtual void translate(const glm::vec3& translation) = 0;
 
-protected:
-
-	glm::mat4 projection, view;
-	glm::vec3 cameraPosition, cameraTarget, cameraDirection;
+		/*	rotate angleRadians around axisOfRotation
+			example: 45, (1,0,0) = 45 degrees around x axis	*/
+		virtual void rotate(float angleRadians, const glm::vec3& axisOfRotation) = 0;
 
 
-};
+
+
+
+	protected:
+
+		glm::mat4 projection, view;
+		glm::vec3 cameraPosition, cameraTarget, cameraDirection;
+
+
+	};
+
+}

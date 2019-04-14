@@ -50,7 +50,7 @@ int main(){
 	// Accept fragment if it closer to the camera than the former one
 	glDepthFunc(GL_LESS);
 	//make sure window creation worked
-	if (window == nullptr){
+	if(window == nullptr){
 		std::cout << "Failed to create GLFW window" << std::endl;
 		glfwTerminate();
 		return -1;
@@ -59,7 +59,7 @@ int main(){
 	glfwMakeContextCurrent(window);
 	glfwSwapInterval(1);
 	glewExperimental = GL_TRUE;
-	if (glewInit() != GLEW_OK){
+	if(glewInit() != GLEW_OK){
 		std::cout << "Failed to initialize GLEW" << std::endl;
 		return -1;
 	}
@@ -70,16 +70,16 @@ int main(){
 	std::cout << width;
 	glfwSetKeyCallback(window, key_callback);
 
-	Shader ourShader("../NoEngineHere/src/Rendering/Shaders/glsl/shader_v.glsl", "../NoEngineHere/src/Rendering/Shaders/glsl/shader_f.glsl");
+	noe::Shader ourShader("../NoEngineHere/src/Rendering/Shaders/glsl/shader_v.glsl", "../NoEngineHere/src/Rendering/Shaders/glsl/shader_f.glsl");
 	//Shader movement("shader_v.glsl", "shader_f.glsl");
-	
-	
+
+
 
 	GLfloat vertices[] = {
 		// cubic : spot
 
-		 0, 0, 1,	1, 0, 0,	0, 0, -1,		
-		-1, 0, 0,		
+		 0, 0, 1,	1, 0, 0,	0, 0, -1,
+		-1, 0, 0,
 		 0, 1, 0
 	};
 
@@ -92,13 +92,13 @@ int main(){
 		0, 1, 2,	0, 2, 3,	3, 1, 4
 	};
 
-	
+
 
 	//fhg
 
 	GLuint VAO, VBO, cBO;
 	GLuint EBO;
-	
+
 
 
 	glGenBuffers(1, &VBO);
@@ -114,9 +114,9 @@ int main(){
 	// bind vertex array object to current
 	glBindVertexArray(VAO);
 
-	
 
-	
+
+
 	//bind ebo to vao and give element indices
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
@@ -130,7 +130,7 @@ int main(){
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0 * sizeof(GL_FLOAT), (GLvoid*)0);
 	glEnableVertexAttribArray(0);
 
-	
+
 	glBindBuffer(GL_ARRAY_BUFFER, cBO);
 	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0 * sizeof(GL_FLOAT), (GLvoid*)(0 * sizeof(GL_FLOAT)));
 	glEnableVertexAttribArray(1);
@@ -139,7 +139,7 @@ int main(){
 
 
 
-	
+
 
 
 
@@ -156,7 +156,7 @@ int main(){
 	projection = glm::perspective(glm::radians(45.0f), (float)800 / (float)600, 0.1f, 100.0f);
 
 
-	
+
 	GLfloat speed = 0.005f;
 	int modelLoc = glGetUniformLocation(ourShader.program, "model");
 	int viewLoc = glGetUniformLocation(ourShader.program, "view");
@@ -165,8 +165,7 @@ int main(){
 	if(viewLoc == -1)std::cout << "view uniform not found" << std::endl;
 	if(projLoc == -1)std::cout << "proj uniform not found" << std::endl;
 
-	while (!glfwWindowShouldClose(window))
-	{
+	while(!glfwWindowShouldClose(window)){
 		if(rotToggle){
 			if(w_pressed){
 				std::cout << "w action" << std::endl;
@@ -205,28 +204,28 @@ int main(){
 				model = glm::rotate(model, glm::radians(speed * 100), glm::vec3(-1.0f, -1.0f, 1.0f));
 
 			}
-		
+
 		}
 
 		glfwPollEvents();
 		glClearColor(.1f, .1f, .1f, 1.f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		
+
 		//model = glm::rotate(model, (float)glfwGetTime() / 1000.0f, glm::vec3(1.0f, 0.0f, 1.0f));
-		
+
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		
+
 		glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
-		
+
 		glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projection));
 
-		
-		
+
+
 		// use shader program
 		ourShader.Use();
 
 
-		
+
 
 		// draw
 		//glBindVertexArray(VAO);
