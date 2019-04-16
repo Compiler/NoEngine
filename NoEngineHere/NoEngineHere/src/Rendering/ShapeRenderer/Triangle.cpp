@@ -6,13 +6,17 @@ namespace noe{
 
 	Triangle::Triangle(){
 		this->shapeVertices.reserve(VERT_COUNT); //3 vertices in triangle
-		shapeVertices.emplace_back(glm::vec3(), glm::vec3(), glm::vec3());
+		shapeVertices.emplace_back(glm::vec3());
+		shapeVertices.emplace_back(glm::vec3());
+		shapeVertices.emplace_back(glm::vec3());
 
 	}
 
 	Triangle::Triangle(glm::vec3 vertex1, glm::vec3 vertex2, glm::vec3 vertex3){
 		this->shapeVertices.reserve(VERT_COUNT);
-		shapeVertices.emplace_back(vertex1, vertex2, vertex3);
+		shapeVertices.emplace_back(vertex1);
+		shapeVertices.emplace_back(vertex2);
+		shapeVertices.emplace_back(vertex3);
 
 	}
 
