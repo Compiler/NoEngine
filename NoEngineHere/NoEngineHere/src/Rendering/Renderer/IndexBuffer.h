@@ -13,11 +13,13 @@ namespace noe{
 
 	public:
 		//data and element count
-		IndexBuffer(const unsigned int* data, unsigned int count);
+		IndexBuffer(const unsigned int* data, unsigned int count, unsigned int hint = GL_STATIC_DRAW);
 		~IndexBuffer();
 
-		void bind();
-		void unbind();
+		void bind() const;
+		void unbind() const;
+
+		inline unsigned int getCount() const{ return _indexCount;  }
 
 
 	};

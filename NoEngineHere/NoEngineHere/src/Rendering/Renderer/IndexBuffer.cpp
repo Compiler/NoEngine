@@ -2,26 +2,28 @@
 
 namespace noe{
 
-	IndexBuffer::IndexBuffer(const unsigned int* data, unsigned int count){
+	IndexBuffer::IndexBuffer(const unsigned int* data, unsigned int count, unsigned int hint){
+
 		glGenBuffers(1, &_bufferID);
-		glBindBuffer(GL_ARRAY_BUFFER, _bufferID);
-		glBufferData(GL_ARRAY_BUFFER, count, data, hint);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _bufferID);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, count * sizeof(unsigned int), data, hint);
 
 	}
 
 
 
-	void IndexBuffer::bind(){
-		glBindBuffer(GL_ARRAY_BUFFER, _bufferID);
+	void IndexBuffer::bind() const {
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _bufferID);
 	}
 
 
 
-	void IndexBuffer::unbind(){
-		glBindBuffer(GL_ARRAY_BUFFER, 0);
+	void IndexBuffer::unbind() const {
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 	}
 
 
 	IndexBuffer::~IndexBuffer(){
+		glDeleteBuffers(1, &_bufferID);
 	}
 }

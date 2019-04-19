@@ -8,6 +8,11 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
+#include "Rendering/Renderer/IndexBuffer.h"
+#include "Rendering/Renderer/VertexBuffer.h"
+#include "Rendering/Renderer/VertexArray.h"
+#include "Rendering/Renderer/VertexBufferLayout.h"
+
 bool w_pressed, s_pressed, a_pressed, d_pressed, rotToggle;
 
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode){
@@ -85,7 +90,7 @@ int main(){
 
 	GLfloat colors[] = {
 		// positions	
-		 1,0,0,	1,0,0, 1,0,0,    0,1,0, 0,1,0, 0,1,0,	0,0,1, 0,0,1, 0,0,1,
+		 0,0,1, 0,0,1, 0,0,1,     1,0,0, 1,0,0, 1,0,0,    0,1,0, 0,1,0, 0,1,0,
 	};
 
 	unsigned int indices[] = {
@@ -101,46 +106,28 @@ int main(){
 
 
 
-	glGenBuffers(1, &VBO);
-	glGenBuffers(1, &cBO);
-	glGenBuffers(1, &EBO);
-
-	glGenVertexArrays(1, &VAO);
 
 
-	glBindBuffer(GL_ARRAY_BUFFER, cBO);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(colors), colors, GL_STATIC_DRAW);
+	//glGenVertexArrays(1, &VAO);
 
 	// bind vertex array object to current
-	glBindVertexArray(VAO);
+	//glBindVertexArray(VAO);
+
+
+	noe::VertexBuffer colorBuffer(colors, 9 * 3 * sizeof(float));
+	noe::VertexBuffer verticesBuffer(vertices, 5 * 3 * sizeof(float));
+	noe::IndexBuffer indexBuffer(indices, 3*3);
 
 
 
+	noe::VertexArray vao;
+	noe::VertexBufferLayout layout;
 
-	//bind ebo to vao and give element indices
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
-
-
-	// bind vbo to vao and give vertices
-	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-
-	// set position of data of attribute pointers (only one here)
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0 * sizeof(GL_FLOAT), (GLvoid*)0);
-	glEnableVertexAttribArray(0);
+	layout.push<float>(3);
+	vao.addBuffer(verticesBuffer, layout);
 
 
-	glBindBuffer(GL_ARRAY_BUFFER, cBO);
-	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0 * sizeof(GL_FLOAT), (GLvoid*)(0 * sizeof(GL_FLOAT)));
-	glEnableVertexAttribArray(1);
-	// unbind the vertex array object
-	//glBindVertexArray(0);
-
-
-
-
-
+	indexBuffer.bind();
 
 
 	glm::mat4 model = glm::mat4(1.0f);
@@ -225,7 +212,7 @@ int main(){
 		ourShader.Use();
 
 
-
+		vao.bind();
 
 
 		glDrawElements(GL_TRIANGLES, 9, GL_UNSIGNED_INT, 0);
