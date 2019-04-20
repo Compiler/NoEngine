@@ -32,8 +32,11 @@ namespace noe{
 
 
 	int Shader::getUniformLocation(const std::string& name){
+		if(_uniformLocationCache.find(name) != _uniformLocationCache.end())
+			return _uniformLocationCache[name];
 		int location = glGetUniformLocation(_shaderID, name.c_str());
 		if(location == -1) std::cout << "uniform " << name << " not found" << std::endl;
+		_uniformLocationCache[name] = location;
 		return location;
 	
 	}

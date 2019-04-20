@@ -5,7 +5,7 @@
 #include <fstream>
 #include <sstream>
 #include <iostream>
-
+#include <unordered_map>
 #include <GL/glew.h>
 
 namespace noe{
@@ -15,6 +15,8 @@ namespace noe{
 	private:
 		unsigned int _shaderID;
 		std::string _vertexFilePath, _fragmentFilePath;
+
+		std::unordered_map<std::string, int> _uniformLocationCache;
 
 	public:
 
