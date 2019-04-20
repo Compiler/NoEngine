@@ -74,8 +74,9 @@ int main(){
 	glViewport(0, 0, width, height);
 	std::cout << width;
 	glfwSetKeyCallback(window, key_callback);
-
-	noe::Shader ourShader("../NoEngineHere/src/Rendering/Shaders/glsl/shader_v.glsl", "../NoEngineHere/src/Rendering/Shaders/glsl/shader_f.glsl");
+	std::string vertexShaderPath = "../NoEngineHere/src/Rendering/Shaders/glsl/shader_v.glsl";
+	std::string fragmentShaderPath = "../NoEngineHere/src/Rendering/Shaders/glsl/shader_f.glsl";
+	noe::Shader ourShader(vertexShaderPath, fragmentShaderPath);
 	//Shader movement("shader_v.glsl", "shader_f.glsl");
 
 
@@ -145,12 +146,7 @@ int main(){
 
 
 	GLfloat speed = 0.005f;
-	int modelLoc = glGetUniformLocation(ourShader.program, "model");
-	int viewLoc = glGetUniformLocation(ourShader.program, "view");
-	int projLoc = glGetUniformLocation(ourShader.program, "projection");
-	if(modelLoc == -1)std::cout << "model uniform not found" << std::endl;
-	if(viewLoc == -1)std::cout << "view uniform not found" << std::endl;
-	if(projLoc == -1)std::cout << "proj uniform not found" << std::endl;
+
 
 	while(!glfwWindowShouldClose(window)){
 		if(rotToggle){
@@ -199,17 +195,14 @@ int main(){
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		//model = glm::rotate(model, (float)glfwGetTime() / 1000.0f, glm::vec3(1.0f, 0.0f, 1.0f));
-
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-
-		glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
-
-		glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projection));
+		ourShader.setUniformMatrix4fv("model", false, glm::value_ptr(model));
+		ourShader.setUniformMatrix4fv("view", false, glm::value_ptr(view));
+		ourShader.setUniformMatrix4fv("projection", false, glm::value_ptr(projection));
 
 
 
 		// use shader program
-		ourShader.Use();
+		ourShader.bind();
 
 
 		vao.bind();
