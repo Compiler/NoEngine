@@ -12,6 +12,7 @@
 #include "Rendering/Renderer/VertexBuffer.h"
 #include "Rendering/Renderer/VertexArray.h"
 #include "Rendering/Renderer/VertexBufferLayout.h"
+#include "Rendering/Renderer/Renderer.h"
 
 bool w_pressed, s_pressed, a_pressed, d_pressed, rotToggle;
 
@@ -77,20 +78,16 @@ int main(){
 	std::string vertexShaderPath = "../NoEngineHere/src/Rendering/Shaders/glsl/shader_v.glsl";
 	std::string fragmentShaderPath = "../NoEngineHere/src/Rendering/Shaders/glsl/shader_f.glsl";
 	noe::Shader ourShader(vertexShaderPath, fragmentShaderPath);
-	//Shader movement("shader_v.glsl", "shader_f.glsl");
 
 
 
 	GLfloat vertices[] = {
-		// cubic : spot
-
 		 0, 0, 1,	1, 0, 0,	0, 0, -1,
 		-1, 0, 0,
 		 0, 1, 0
 	};
 
 	GLfloat colors[] = {
-		// positions	
 		 0,0,1, 0,0,1, 0,0,1,     1,0,0, 1,0,0, 1,0,0,    0,1,0, 0,1,0, 0,1,0,
 	};
 
@@ -99,20 +96,8 @@ int main(){
 	};
 
 
-
-	//fhg
-
 	GLuint VAO, VBO, cBO;
 	GLuint EBO;
-
-
-
-
-
-	//glGenVertexArrays(1, &VAO);
-
-	// bind vertex array object to current
-	//glBindVertexArray(VAO);
 
 
 	noe::VertexBuffer colorBuffer(colors, 9 * 3 * sizeof(float));
@@ -148,6 +133,9 @@ int main(){
 	GLfloat speed = 0.005f;
 
 
+	noe::Renderer render;
+
+
 	while(!glfwWindowShouldClose(window)){
 		if(rotToggle){
 			if(w_pressed){
@@ -168,7 +156,8 @@ int main(){
 				model = glm::rotate(model, glm::radians(speed * 100), glm::vec3(0.0f, 1.0f, 0.0f));
 
 			}
-		} else{
+		} 
+		else{
 			if(w_pressed){
 				std::cout << "t_w action" << std::endl;
 				model = glm::rotate(model, glm::radians(speed * 100), glm::vec3(1.0f, 0.0f, -1.0f));
@@ -191,9 +180,12 @@ int main(){
 		}
 
 		glfwPollEvents();
-		glClearColor(.1f, .1f, .1f, 1.f);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		
+		render.clear();
 
+
+
+		ourShader.bind();
 		//model = glm::rotate(model, (float)glfwGetTime() / 1000.0f, glm::vec3(1.0f, 0.0f, 1.0f));
 		ourShader.setUniformMatrix4fv("model", false, glm::value_ptr(model));
 		ourShader.setUniformMatrix4fv("view", false, glm::value_ptr(view));
@@ -201,14 +193,9 @@ int main(){
 
 
 
-		// use shader program
-		ourShader.bind();
+		render.draw(vao, indexBuffer, ourShader);
 
 
-		vao.bind();
-
-
-		glDrawElements(GL_TRIANGLES, 9, GL_UNSIGNED_INT, 0);
 
 		glfwSwapBuffers(window);
 	}

@@ -2,7 +2,7 @@
 
 namespace noe{
 
-	IndexBuffer::IndexBuffer(const unsigned int* data, unsigned int count, unsigned int hint){
+	IndexBuffer::IndexBuffer(const unsigned int* data, unsigned int count, unsigned int hint): _indexCount(count){
 
 		glGenBuffers(1, &_bufferID);
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _bufferID);

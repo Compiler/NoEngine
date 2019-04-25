@@ -128,6 +128,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Rendering\Renderer\Renderer.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Rendering\Camera\PerspectiveCamera.cpp" />
     <ClCompile Include="src\Rendering\Renderer\IndexBuffer.cpp" />
@@ -138,6 +139,7 @@
     <ClCompile Include="src\Rendering\Renderer\VertexArray.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Rendering\Renderer\Renderer.h" />
     <ClInclude Include="src\Rendering\Camera\Camera.h" />
     <ClInclude Include="src\Rendering\Camera\PerspectiveCamera.h" />
     <ClInclude Include="src\Rendering\Renderer\IndexBuffer.h" />
