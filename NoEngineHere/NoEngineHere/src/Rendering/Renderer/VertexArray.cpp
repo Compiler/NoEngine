@@ -2,7 +2,6 @@
 #include "VertexArray.h"
 
 
-
 namespace noe{
 
 	VertexArray::VertexArray(){
@@ -15,10 +14,11 @@ namespace noe{
 
 		const std::vector<VertexBufferElement>& elements = dataLayout.getElements();
 		unsigned int offset = 0;
+
 		for(unsigned int i = 0; i < elements.size(); i++){
 			const VertexBufferElement& element = elements[i];
 			glEnableVertexAttribArray(i);
-			glVertexAttribPointer(i, element.count, element.type, element.normalized, dataLayout.getStride(), (const void*) offset);
+			glVertexAttribPointer(i, element.count, element.type, element.normalized, dataLayout.getStride(), (const void*) offset);//f f f  c c c  c c c  c c c
 			offset += element.count * VertexBufferElement::sizeOfType(element.type);
 		}
 	}

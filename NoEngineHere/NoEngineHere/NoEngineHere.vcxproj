@@ -134,6 +134,7 @@
     <ClCompile Include="src\Rendering\Renderer\IndexBuffer.cpp" />
     <ClCompile Include="src\Rendering\ShapeRenderer\Rectangle.cpp" />
     <ClCompile Include="src\Rendering\Shaders\Shader.cpp" />
+    <ClCompile Include="src\Rendering\ShapeRenderer\ShapeRenderer.cpp" />
     <ClCompile Include="src\Rendering\ShapeRenderer\Triangle.cpp" />
     <ClCompile Include="src\Rendering\Renderer\VertexBuffer.cpp" />
     <ClCompile Include="src\Rendering\Renderer\VertexArray.cpp" />
@@ -146,7 +147,7 @@
     <ClInclude Include="src\Rendering\ShapeRenderer\Rectangle.h" />
     <ClInclude Include="src\Rendering\Shaders\Shader.h" />
     <ClInclude Include="src\Rendering\ShapeRenderer\Shape.h" />
-    <ClInclude Include="src\Rendering\ShapeRenderer\ShapeBatch.h" />
+    <ClInclude Include="src\Rendering\ShapeRenderer\ShapeRenderer.h" />
     <ClInclude Include="src\Rendering\ShapeRenderer\Triangle.h" />
     <ClInclude Include="src\Rendering\Renderer\VertexBuffer.h" />
     <ClInclude Include="src\Rendering\Renderer\VertexArray.h" />
@@ -157,6 +158,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="src\Rendering\Shaders\glsl\shader_f.glsl" />
+    <None Include="src\Rendering\Shaders\glsl\shapeRenderer_passthrough_f.glsl" />
+    <None Include="src\Rendering\Shaders\glsl\shapeRenderer_passthrough_v.glsl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

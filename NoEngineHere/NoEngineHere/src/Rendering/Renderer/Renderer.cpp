@@ -16,6 +16,15 @@ namespace noe{
 	
 	}
 
+	void Renderer::drawTriangles(const VertexArray& vertexArray, unsigned int count, const Shader& shader) const{
+
+		shader.bind();
+		vertexArray.bind();
+
+		glDrawArrays(GL_TRIANGLES, 0, count);
+
+	}
+
 	void Renderer::clear() const{
 		glClearColor(.1f, .1f, .1f, 1.f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);

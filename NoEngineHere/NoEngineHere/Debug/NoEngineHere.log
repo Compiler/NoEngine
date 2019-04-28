@@ -1,6 +1,4 @@
-﻿  Renderer.cpp
-  main.cpp
+﻿  main.cpp
 c:\noengine\noenginehere\noenginehere\src\main.cpp(99): warning C4101: 'cBO': unreferenced local variable
-  Generating Code...
 c:\noengine\noenginehere\noenginehere\src\rendering\renderer\vertexbufferlayout.h(21): warning C4715: 'noe::VertexBufferElement::sizeOfType': not all control paths return a value
   NoEngineHere.vcxproj -> C:\NoEngine\NoEngineHere\Debug\NoEngineHere.exe

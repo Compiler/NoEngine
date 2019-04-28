@@ -51,6 +51,9 @@
     <ClCompile Include="src\Rendering\Renderer\Renderer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Rendering\ShapeRenderer\ShapeRenderer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Rendering\ShapeRenderer\Triangle.h">
@@ -66,9 +69,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Rendering\Camera\PerspectiveCamera.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Rendering\ShapeRenderer\ShapeBatch.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Rendering\ShapeRenderer\Shape.h">
@@ -89,11 +89,16 @@
     <ClInclude Include="src\Rendering\Renderer\Renderer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\Rendering\ShapeRenderer\ShapeRenderer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\Rendering\Shaders\glsl\shader_f.glsl">
       <Filter>Source Files\Shading\Shaders</Filter>
     </None>
+    <None Include="src\Rendering\Shaders\glsl\shapeRenderer_passthrough_v.glsl" />
+    <None Include="src\Rendering\Shaders\glsl\shapeRenderer_passthrough_f.glsl" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="src\Rendering\Shaders\glsl\shader_v.glsl">

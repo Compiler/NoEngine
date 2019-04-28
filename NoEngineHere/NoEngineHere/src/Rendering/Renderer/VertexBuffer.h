@@ -12,6 +12,12 @@ namespace noe{
 
 	public:
 		VertexBuffer(const void* data, unsigned int dataSize, unsigned int hint = GL_STATIC_DRAW);
+		VertexBuffer();
+
+		void init(const void* data, unsigned int dataSize, unsigned int hint = GL_STATIC_DRAW);
+
+
+
 		~VertexBuffer();
 
 		void bind() const ;

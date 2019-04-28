@@ -11,6 +11,7 @@ namespace noe{
 
 		void clear() const;
 		void draw(const VertexArray& vertexArray, const IndexBuffer& indexBuffer, const Shader& shader) const;
+		void drawTriangles(const VertexArray& vertexArray, unsigned int count, const Shader& shader) const;
 
 
 		~Renderer();

@@ -87,9 +87,9 @@ int main(){
 		 0, 1, 0
 	};
 
-	GLfloat colors[] = {
-		 0,0,1, 0,0,1, 0,0,1,     1,0,0, 1,0,0, 1,0,0,    0,1,0, 0,1,0, 0,1,0,
-	};
+	//GLfloat colors[] = {
+	//	 0,0,1, 0,0,1, 0,0,1,     1,0,0, 1,0,0, 1,0,0,    0,1,0, 0,1,0, 0,1,0,
+	//};
 
 	unsigned int indices[] = {
 		0, 1, 2,	0, 2, 3,	3, 1, 4
@@ -100,17 +100,22 @@ int main(){
 	GLuint EBO;
 
 
-	noe::VertexBuffer colorBuffer(colors, 9 * 3 * sizeof(float));
+	//noe::VertexBuffer colorBuffer(colors, 9 * 3 * sizeof(float));
 	noe::VertexBuffer verticesBuffer(vertices, 5 * 3 * sizeof(float));
 	noe::IndexBuffer indexBuffer(indices, 3*3);
 
 
 
 	noe::VertexArray vao;
-	noe::VertexBufferLayout layout;
+	noe::VertexBufferLayout layout, colLayout;
 
 	layout.push<float>(3);
 	vao.addBuffer(verticesBuffer, layout);
+
+	//layout.push<float>(3);
+	//vao.addBuffer(colorBuffer, layout);
+
+	
 
 
 	indexBuffer.bind();
