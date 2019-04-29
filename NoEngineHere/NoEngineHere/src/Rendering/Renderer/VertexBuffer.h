@@ -8,7 +8,7 @@ namespace noe{
 
 	private:
 		unsigned int _bufferID;
-
+		unsigned int _bufferSize;
 
 	public:
 		VertexBuffer(const void* data, unsigned int dataSize, unsigned int hint = GL_STATIC_DRAW);
@@ -22,6 +22,8 @@ namespace noe{
 
 		void bind() const ;
 		void unbind() const ;
+
+		unsigned int getBufferSize() const{ return _bufferSize; }
 
 
 	};

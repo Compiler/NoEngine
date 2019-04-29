@@ -10,6 +10,7 @@ namespace noe{
 
 	private:
 		unsigned int _vertexArrayID;
+		VertexBuffer _buffers[2];
 	public:
 		VertexArray();
 

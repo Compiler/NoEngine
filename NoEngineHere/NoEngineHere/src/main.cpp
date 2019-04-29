@@ -79,52 +79,7 @@ int main(){
 	glfwSetKeyCallback(window, key_callback);
 	std::string vertexShaderPath = "../NoEngineHere/src/Rendering/Shaders/glsl/shader_v.glsl";
 	std::string fragmentShaderPath = "../NoEngineHere/src/Rendering/Shaders/glsl/shader_f.glsl";
-	//noe::Shader ourShader(vertexShaderPath, fragmentShaderPath);
-	noe::Shader ourShader;
-	ourShader.init(vertexShaderPath, fragmentShaderPath);
 
-
-
-	GLfloat vertices[] = {
-		 0, 0, 1,	1, 0, 0,	0, 0, -1,
-		//-1, 0, 0,
-		// 0, 1, 0
-	};
-
-	GLfloat colors[] = {
-		 0,0,1,1,  0,0,1,1,  0,0,1,1   //  1,0,0, 1,0,0, 1,0,0,    0,1,0, 0,1,0, 0,1,0,
-	};
-
-	//unsigned int indices[] = {
-	//	0, 1, 2,	0, 2, 3,	3, 1, 4
-	//};
-
-
-	GLuint VAO, VBO, cBO;
-	GLuint EBO;
-
-
-	//noe::VertexBuffer colorBuffer(colors, 9 * 3 * sizeof(float));
-	noe::VertexBuffer verticesBuffer, colorBuffer;
-	verticesBuffer.init(vertices, 3 * 3 * sizeof(float));
-	colorBuffer.init(colors, 12 * 4);
-	//noe::IndexBuffer indexBuffer(indices, 3*3);
-
-
-
-	noe::VertexArray vao;
-	noe::VertexBufferLayout layout;
-
-	layout.push<float>(3);
-	vao.addBuffer(verticesBuffer, layout);
-
-	layout.push<float>(4);
-	vao.addBuffer(colorBuffer, layout);
-
-	
-
-
-	//indexBuffer.bind();
 
 
 	glm::mat4 model = glm::mat4(1.0f);
@@ -195,9 +150,9 @@ int main(){
 		shapeRenderer.clear();
 		shapeRenderer.setMatrices(model, view, projection);
 
-
 		shapeRenderer.begin();
-		shapeRenderer.drawTriangle(glm::vec3(0.0f, 0.0f, 1.0f), glm::vec3(1.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, -1.0f), glm::vec4(1.0f, 1.0f, 0.0f, 1.0f));
+		shapeRenderer.drawTriangle(glm::vec3(-1.0f, 0.0f, 0.0f), glm::vec3(1.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec4(1.0f, .0f, .0f, 1.0f));
+		//shapeRenderer.drawTriangle(glm::vec3(-1.0f, 0.0f, 0.0f), glm::vec3(1.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec4(1.0f, .0f, .0f, 1.0f));
 		shapeRenderer.end();
 
 
@@ -205,10 +160,7 @@ int main(){
 		glfwSwapBuffers(window);
 	}
 
-	// deallocate all resources
-	glDeleteVertexArrays(1, &VAO);
-	glDeleteBuffers(1, &VBO);
-	glDeleteBuffers(1, &EBO);
+
 	// terminate GLFW
 	glfwTerminate();
 

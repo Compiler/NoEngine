@@ -21,7 +21,7 @@ namespace noe{
 		shader.bind();
 		vertexArray.bind();
 
-		glDrawArrays(GL_TRIANGLES, 0, count * 3);
+		glDrawArrays(GL_TRIANGLES, 0, count/3);
 
 	}
 

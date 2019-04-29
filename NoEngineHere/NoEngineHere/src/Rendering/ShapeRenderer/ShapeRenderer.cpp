@@ -18,6 +18,7 @@ namespace noe{
 
 		_trianglePositions.clear();
 		_triangleColors.clear();
+		_packedData.clear();
 	}
 
 	void ShapeRenderer::drawTriangle(const glm::vec3& firstVertex, const glm::vec3& secondVertex, const glm::vec3& thirdVertex, const glm::vec3& color){
@@ -34,13 +35,15 @@ namespace noe{
 	}
 
 	void ShapeRenderer::end(){
+		void* positionData = reinterpret_cast<void*>(_trianglePositions.data());
+		void* colorData = reinterpret_cast<void*>(_triangleColors.data());
+		
+		_shapeVerticesBuffer.init(positionData, _trianglePositions.size() * 4);
+		_shapeColorBuffer.init(colorData, _triangleColors.size() * 4);
 
-		_shapeVerticesBuffer.init(static_cast<void*>(_trianglePositions.data()), _trianglePositions.size() * 4);
-		_shapeColorBuffer.init(static_cast<void*>(_triangleColors.data()), _triangleColors.size() * 4);
-		for(int i = 0; i < _trianglePositions.size(); i++) std::cout << _trianglePositions[i] << std::endl;
 		_shapeVertexArray.addBuffer(_shapeVerticesBuffer, _shapeLayout);
-
 		_shapeVertexArray.addBuffer(_shapeColorBuffer, _shapeLayout);
+
 
 		_renderer.drawTriangles(_shapeVertexArray, (unsigned int)_trianglePositions.size(), _shapeShader);
 

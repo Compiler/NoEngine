@@ -28,6 +28,7 @@ namespace noe{
 
 		std::vector<float> _trianglePositions;
 		std::vector<float> _triangleColors;
+		std::vector<float> _packedData;
 
 
 
