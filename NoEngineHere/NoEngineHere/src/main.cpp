@@ -14,6 +14,8 @@
 #include "Rendering/Renderer/VertexBufferLayout.h"
 #include "Rendering/Renderer/Renderer.h"
 
+#include "Rendering/ShapeRenderer/ShapeRenderer.h"
+
 bool w_pressed, s_pressed, a_pressed, d_pressed, rotToggle;
 
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode){
@@ -77,23 +79,25 @@ int main(){
 	glfwSetKeyCallback(window, key_callback);
 	std::string vertexShaderPath = "../NoEngineHere/src/Rendering/Shaders/glsl/shader_v.glsl";
 	std::string fragmentShaderPath = "../NoEngineHere/src/Rendering/Shaders/glsl/shader_f.glsl";
-	noe::Shader ourShader(vertexShaderPath, fragmentShaderPath);
+	//noe::Shader ourShader(vertexShaderPath, fragmentShaderPath);
+	noe::Shader ourShader;
+	ourShader.init(vertexShaderPath, fragmentShaderPath);
 
 
 
 	GLfloat vertices[] = {
 		 0, 0, 1,	1, 0, 0,	0, 0, -1,
-		-1, 0, 0,
-		 0, 1, 0
+		//-1, 0, 0,
+		// 0, 1, 0
 	};
 
-	//GLfloat colors[] = {
-	//	 0,0,1, 0,0,1, 0,0,1,     1,0,0, 1,0,0, 1,0,0,    0,1,0, 0,1,0, 0,1,0,
+	GLfloat colors[] = {
+		 0,0,1,1,  0,0,1,1,  0,0,1,1   //  1,0,0, 1,0,0, 1,0,0,    0,1,0, 0,1,0, 0,1,0,
+	};
+
+	//unsigned int indices[] = {
+	//	0, 1, 2,	0, 2, 3,	3, 1, 4
 	//};
-
-	unsigned int indices[] = {
-		0, 1, 2,	0, 2, 3,	3, 1, 4
-	};
 
 
 	GLuint VAO, VBO, cBO;
@@ -101,24 +105,26 @@ int main(){
 
 
 	//noe::VertexBuffer colorBuffer(colors, 9 * 3 * sizeof(float));
-	noe::VertexBuffer verticesBuffer(vertices, 5 * 3 * sizeof(float));
-	noe::IndexBuffer indexBuffer(indices, 3*3);
+	noe::VertexBuffer verticesBuffer, colorBuffer;
+	verticesBuffer.init(vertices, 3 * 3 * sizeof(float));
+	colorBuffer.init(colors, 12 * 4);
+	//noe::IndexBuffer indexBuffer(indices, 3*3);
 
 
 
 	noe::VertexArray vao;
-	noe::VertexBufferLayout layout, colLayout;
+	noe::VertexBufferLayout layout;
 
 	layout.push<float>(3);
 	vao.addBuffer(verticesBuffer, layout);
 
-	//layout.push<float>(3);
-	//vao.addBuffer(colorBuffer, layout);
+	layout.push<float>(4);
+	vao.addBuffer(colorBuffer, layout);
 
 	
 
 
-	indexBuffer.bind();
+	//indexBuffer.bind();
 
 
 	glm::mat4 model = glm::mat4(1.0f);
@@ -138,7 +144,7 @@ int main(){
 	GLfloat speed = 0.005f;
 
 
-	noe::Renderer render;
+	noe::ShapeRenderer shapeRenderer;
 
 
 	while(!glfwWindowShouldClose(window)){
@@ -186,19 +192,13 @@ int main(){
 
 		glfwPollEvents();
 		
-		render.clear();
+		shapeRenderer.clear();
+		shapeRenderer.setMatrices(model, view, projection);
 
 
-
-		ourShader.bind();
-		//model = glm::rotate(model, (float)glfwGetTime() / 1000.0f, glm::vec3(1.0f, 0.0f, 1.0f));
-		ourShader.setUniformMatrix4fv("model", false, glm::value_ptr(model));
-		ourShader.setUniformMatrix4fv("view", false, glm::value_ptr(view));
-		ourShader.setUniformMatrix4fv("projection", false, glm::value_ptr(projection));
-
-
-
-		render.draw(vao, indexBuffer, ourShader);
+		shapeRenderer.begin();
+		shapeRenderer.drawTriangle(glm::vec3(0.0f, 0.0f, 1.0f), glm::vec3(1.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, -1.0f), glm::vec4(1.0f, 1.0f, 0.0f, 1.0f));
+		shapeRenderer.end();
 
 
 

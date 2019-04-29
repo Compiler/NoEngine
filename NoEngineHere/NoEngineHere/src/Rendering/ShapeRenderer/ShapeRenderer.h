@@ -1,6 +1,9 @@
 #pragma once
 
 #include <glm/vec3.hpp>
+#include <glm/vec4.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 #include "../Renderer/VertexArray.h"
 #include "../Renderer/IndexBuffer.h"
 #include "../Renderer/VertexBuffer.h"
@@ -12,15 +15,6 @@
 namespace noe{
 
 
-	struct TriangleData{
-		glm::vec3 v1, v2, v3;
-		glm::vec3 color;
-		float alpha;
-	
-	
-	};
-
-
 	class ShapeRenderer{
 
 	private:
@@ -30,8 +24,10 @@ namespace noe{
 		VertexBufferLayout _shapeLayout;
 		Shader _shapeShader;
 
+		Renderer _renderer;
 
-		std::vector<TriangleData> _triangleData;
+		std::vector<float> _trianglePositions;
+		std::vector<float> _triangleColors;
 
 
 
@@ -42,9 +38,15 @@ namespace noe{
 		void begin();
 
 		void drawTriangle(const glm::vec3& firstVertex, const glm::vec3& secondVertex, const glm::vec3& thirdVertex, const glm::vec3& color);
+		void drawTriangle(const glm::vec3& firstVertex, const glm::vec3& secondVertex, const glm::vec3& thirdVertex, const glm::vec4& color);
 
 		void end();
 
+
+		void clear() const;
+
+
+		void setMatrices(glm::mat4 model, glm::mat4 view, glm::mat4 projection);
 
 	};
 

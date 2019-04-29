@@ -11,14 +11,17 @@ namespace noe{
 
 		void setVertices(std::vector<glm::vec3> vertices);
 
-
+		void translate(float xAmount, float yAmount, float zAmount);
+		void translateX(float amount);
+		void translateY(float amount);
+		void translateZ(float amount);
 
 
 		~Triangle();
 
 
 	private:
-		const char VERT_COUNT = 3;
+		const char _VERT_COUNT = 3;
 
 	};
 
