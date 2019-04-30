@@ -92,6 +92,9 @@
     <ClInclude Include="src\Rendering\ShapeRenderer\ShapeRenderer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\Rendering\ShapeRenderer\Color.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\Rendering\Shaders\glsl\shader_f.glsl">

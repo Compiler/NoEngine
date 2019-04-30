@@ -27,6 +27,18 @@ namespace noe{
 		//_trianglePositions.emplace_back(firstVertex, secondVertex, thirdVertex);
 		//_triangleColors.emplace_back(color.x, color.y, color.z, 1.0f);
 	}
+
+
+	void ShapeRenderer::drawTriangle(Triangle& triangle){
+		std::vector<glm::vec3> vertices = triangle.getVertices();
+		Color color = triangle.getColor();
+		_trianglePositions.emplace_back(vertices.at(0).x); _trianglePositions.emplace_back(vertices.at(0).y); _trianglePositions.emplace_back(vertices.at(0).z);
+		_trianglePositions.emplace_back(vertices.at(1).x); _trianglePositions.emplace_back(vertices.at(1).y); _trianglePositions.emplace_back(vertices.at(1).z);
+		_trianglePositions.emplace_back(vertices.at(2).x); _trianglePositions.emplace_back(vertices.at(2).y); _trianglePositions.emplace_back(vertices.at(2).z);
+		_triangleColors.emplace_back(color.r); _triangleColors.emplace_back(color.g); _triangleColors.emplace_back(color.b); _triangleColors.emplace_back(color.a);
+		_triangleColors.emplace_back(color.r); _triangleColors.emplace_back(color.g); _triangleColors.emplace_back(color.b); _triangleColors.emplace_back(color.a);
+		_triangleColors.emplace_back(color.r); _triangleColors.emplace_back(color.g); _triangleColors.emplace_back(color.b); _triangleColors.emplace_back(color.a);
+	}
 	void ShapeRenderer::drawTriangle(const glm::vec3& firstVertex, const glm::vec3& secondVertex, const glm::vec3& thirdVertex, const glm::vec4& color){
 		_trianglePositions.emplace_back(firstVertex.x); _trianglePositions.emplace_back(firstVertex.y); _trianglePositions.emplace_back(firstVertex.z);
 		_trianglePositions.emplace_back(secondVertex.x); _trianglePositions.emplace_back(secondVertex.y); _trianglePositions.emplace_back(secondVertex.z);
@@ -37,11 +49,8 @@ namespace noe{
 	}
 
 	void ShapeRenderer::end(){
-		void* positionData = reinterpret_cast<void*>(_trianglePositions.data());
-		void* colorData = reinterpret_cast<void*>(_triangleColors.data());
-		
-		_shapeVerticesBuffer.init(positionData, _trianglePositions.size() * 4, GL_DYNAMIC_DRAW);
-		_shapeColorBuffer.init(colorData, _triangleColors.size() * 4, GL_DYNAMIC_DRAW);
+		_shapeVerticesBuffer.init(reinterpret_cast<void*>(_trianglePositions.data()), _trianglePositions.size() * 4, GL_DYNAMIC_DRAW);
+		_shapeColorBuffer.init(reinterpret_cast<void*>(_triangleColors.data()), _triangleColors.size() * 4, GL_DYNAMIC_DRAW);
 
 		_shapeVertexArray.addBuffer(_shapeVerticesBuffer, _shapeLayout);
 		_shapeVertexArray.addBuffer(_shapeColorBuffer, _shapeLayout);

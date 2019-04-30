@@ -3,7 +3,7 @@
 namespace noe{
 
 
-	Shader::Shader(std::string& vertexPath, std::string& fragmentPath): _shaderID(0), _vertexFilePath(vertexPath), _fragmentFilePath(fragmentPath){
+	Shader::Shader(const std::string& vertexPath, const std::string& fragmentPath): _shaderID(0), _vertexFilePath(vertexPath), _fragmentFilePath(fragmentPath){
 
 		compileShader();
 	}
@@ -13,7 +13,7 @@ namespace noe{
 	}
 
 
-	void Shader::init(std::string& vertexPath, std::string& fragmentPath){
+	void Shader::init(const std::string& vertexPath, const std::string& fragmentPath){
 		_vertexFilePath = vertexPath;
 		_fragmentFilePath = fragmentPath;
 		compileShader();

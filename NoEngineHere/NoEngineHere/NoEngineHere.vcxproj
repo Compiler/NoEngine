@@ -144,6 +144,7 @@
     <ClInclude Include="src\Rendering\Camera\Camera.h" />
     <ClInclude Include="src\Rendering\Camera\PerspectiveCamera.h" />
     <ClInclude Include="src\Rendering\Renderer\IndexBuffer.h" />
+    <ClInclude Include="src\Rendering\ShapeRenderer\Color.h" />
     <ClInclude Include="src\Rendering\ShapeRenderer\Rectangle.h" />
     <ClInclude Include="src\Rendering\Shaders\Shader.h" />
     <ClInclude Include="src\Rendering\ShapeRenderer\Shape.h" />

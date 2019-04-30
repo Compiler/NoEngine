@@ -20,10 +20,10 @@ namespace noe{
 
 	public:
 
-		Shader(std::string& vertexPath, std::string& fragmentPath);
+		Shader(const std::string& vertexPath, const std::string& fragmentPath);
 		Shader();
 
-		void init(std::string& vertexPath, std::string& fragmentPath);
+		void init(const std::string& vertexPath, const std::string& fragmentPath);
 
 		void bind() const;
 		void unbind() const;

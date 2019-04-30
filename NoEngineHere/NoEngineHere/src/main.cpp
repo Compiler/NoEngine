@@ -18,6 +18,54 @@
 
 bool w_pressed, s_pressed, a_pressed, d_pressed, rotToggle;
 
+
+
+void cameraControl(glm::mat4 &_view, glm::mat4 &_model, glm::mat4 &_projection, float _speed){
+
+
+	if(rotToggle){
+		if(w_pressed){
+			std::cout << "w action" << std::endl;
+			_view = glm::translate(_view, glm::vec3(0, 0, _speed));
+		}
+		if(s_pressed){
+			std::cout << "s action" << std::endl;
+			_view = glm::translate(_view, glm::vec3(0, 0, -_speed * 8));
+		}
+		if(a_pressed){
+			std::cout << "a action" << std::endl;
+			_projection = glm::rotate(_projection, glm::radians(_speed * 100), glm::vec3(0.0f, -1.0f, 0.0f));
+
+		}
+		if(d_pressed){
+			std::cout << "d action" << std::endl;
+			_model = glm::rotate(_model, glm::radians(_speed * 100), glm::vec3(0.0f, 1.0f, 0.0f));
+
+		}
+	} else{
+		if(w_pressed){
+			std::cout << "t_w action" << std::endl;
+			_model = glm::rotate(_model, glm::radians(_speed * 100), glm::vec3(1.0f, 0.0f, -1.0f));
+		}
+		if(s_pressed){
+			std::cout << "t_s action" << std::endl;
+			_model = glm::rotate(_model, glm::radians(_speed * 100), glm::vec3(-1.0f, 0.0f, 1.0f));
+		}
+		if(a_pressed){
+			std::cout << "t_a action" << std::endl;
+			_model = glm::rotate(_model, glm::radians(_speed * 100), glm::vec3(1.0f, 1.0f, -1.0f));
+
+		}
+		if(d_pressed){
+			std::cout << "t_d action" << std::endl;
+			_model = glm::rotate(_model, glm::radians(_speed * 100), glm::vec3(-1.0f, -1.0f, 1.0f));
+
+		}
+
+	}
+
+}
+
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode){
 	if(key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
 		glfwSetWindowShouldClose(window, GL_TRUE);
@@ -102,56 +150,26 @@ int main(){
 	noe::ShapeRenderer shapeRenderer;
 
 
+	noe::Triangle triangle1;
+	triangle1.setVertices(glm::vec3(-1.0f, 0.0f, 0.0f), glm::vec3(1.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	triangle1.setColor(noe::Color(1,0,0));//red
+	
+
 	while(!glfwWindowShouldClose(window)){
-		if(rotToggle){
-			if(w_pressed){
-				std::cout << "w action" << std::endl;
-				view = glm::translate(view, glm::vec3(0, 0, speed));
-			}
-			if(s_pressed){
-				std::cout << "s action" << std::endl;
-				view = glm::translate(view, glm::vec3(0, 0, -speed * 8));
-			}
-			if(a_pressed){
-				std::cout << "a action" << std::endl;
-				projection = glm::rotate(projection, glm::radians(speed * 100), glm::vec3(0.0f, -1.0f, 0.0f));
+		
+		cameraControl(view, model, projection, speed);
+		std::cout << triangle1.getX();
+		if(triangle1.getX() > -1.5f)
+			triangle1.translateX(-0.001f);
 
-			}
-			if(d_pressed){
-				std::cout << "d action" << std::endl;
-				model = glm::rotate(model, glm::radians(speed * 100), glm::vec3(0.0f, 1.0f, 0.0f));
-
-			}
-		} 
-		else{
-			if(w_pressed){
-				std::cout << "t_w action" << std::endl;
-				model = glm::rotate(model, glm::radians(speed * 100), glm::vec3(1.0f, 0.0f, -1.0f));
-			}
-			if(s_pressed){
-				std::cout << "t_s action" << std::endl;
-				model = glm::rotate(model, glm::radians(speed * 100), glm::vec3(-1.0f, 0.0f, 1.0f));
-			}
-			if(a_pressed){
-				std::cout << "t_a action" << std::endl;
-				model = glm::rotate(model, glm::radians(speed * 100), glm::vec3(1.0f, 1.0f, -1.0f));
-
-			}
-			if(d_pressed){
-				std::cout << "t_d action" << std::endl;
-				model = glm::rotate(model, glm::radians(speed * 100), glm::vec3(-1.0f, -1.0f, 1.0f));
-
-			}
-
-		}
 
 		glfwPollEvents();
 		
 		shapeRenderer.clear();
 
 		shapeRenderer.begin();
-		shapeRenderer.drawTriangle(glm::vec3(-1.0f, 0.0f, 0.0f), glm::vec3(1.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec4(1.0f, 1.0f, 1.0f, 1.0f));
-		shapeRenderer.drawTriangle(glm::vec3(-1.5f, 0.0f, 0.0f), glm::vec3(1.5f, 0.0f, 0.0f), glm::vec3(0.0f, 0.5f, 0.0f), glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
+		shapeRenderer.drawTriangle(triangle1);
+		shapeRenderer.drawTriangle(glm::vec3(-1.5f, 0.0f, 0.0f), glm::vec3(1.5f, 0.0f, 0.0f), glm::vec3(0.0f, 0.5f, 0.0f), glm::vec4(1.0f, 1.0f, 0.0f, 1.0f));
 		shapeRenderer.end();
 		shapeRenderer.setMatrices(model, view, projection);
 
