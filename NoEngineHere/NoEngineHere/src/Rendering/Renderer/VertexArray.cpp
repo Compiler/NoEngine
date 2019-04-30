@@ -10,23 +10,10 @@ namespace noe{
 	}
 
 	void VertexArray::addBuffer(VertexBuffer& buffer, const VertexBufferLayout& dataLayout){
-		if(_bufferCache.find(buffer.getBufferID()) == _bufferCache.end()){
-			std::cout << "new buffer created" << std::endl;
+		if(_bufferCache.find(buffer.getBufferID()) == _bufferCache.end())
 			_bufferCache[buffer.getBufferID()] = 1;
-		} else std::cout << "buffer copy prevented" << std::endl;
-		std::cout << "adding buffer" << std::endl;
-		static int __cunt__ = 0;
-		std::cout << __cunt__ << std::endl;
-		
-		//buffer.bind();
-		if(__cunt__ == 0 || __cunt__ == 1)
-			_buffers[__cunt__] = &buffer;
 		
 		const std::vector<VertexBufferElement>& elements = dataLayout.getElements();
-		if(__cunt__ != 4 || __cunt__ != 3)
-			if(__cunt__ == 2) __cunt__ = 4; 
-			else __cunt__++;
-		else __cunt__ = 3;
 
 		unsigned int offset = 0;
 
@@ -42,17 +29,13 @@ namespace noe{
 			glEnableVertexAttribArray(1);
 			std::cout << "called" << std::endl;
 		}
-		/*
-		for(unsigned int i = 0; i < elements.size(); i++){
-			//_buffers[i].bind();
-			//_buffers[1].bind();
-			const VertexBufferElement& element = elements[i];
-			glEnableVertexAttribArray(i);
-			std::cout << "glVertexAttribPointer(" << i << ", " << element.count << ", " << element.normalized << ", " << dataLayout.getStride() << ", " << offset << std::endl;
-			//glVertexAttribPointer(i, element.count, element.type, element.normalized, 0, (const void*)offset);//f f f  c c c  c c c  c c c
+		
+	//	for(unsigned int i = 0; i < elements.size(); i++){
+			//const VertexBufferElement& element = elements[i];
+			//glEnableVertexAttribArray(i);
 			//glVertexAttribPointer(i, element.count, element.type, element.normalized, 0, (const void*)offset);//f f f  c c c  c c c  c c c
 			//offset += element.count * VertexBufferElement::sizeOfType(element.type);
-		}*/
+		//}
 
 	}
 
