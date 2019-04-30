@@ -2,10 +2,14 @@
 
 namespace noe{
 
-	VertexBuffer::VertexBuffer(const void* data, unsigned int dataSize, unsigned int hint): _bufferSize(dataSize){
+	VertexBuffer::VertexBuffer(const void* data, unsigned int dataSize, unsigned int hint): _bufferSize(dataSize)
+	{
+
+	
 		glGenBuffers(1, &_bufferID);
 		glBindBuffer(GL_ARRAY_BUFFER, _bufferID);
 		glBufferData(GL_ARRAY_BUFFER, dataSize, data, hint);
+		
 
 	}
 
@@ -23,6 +27,7 @@ namespace noe{
 
 
 	void VertexBuffer::bind() const{
+		std::cout << "binding: " << _bufferID << std::endl;
 		glBindBuffer(GL_ARRAY_BUFFER, _bufferID);
 	}
 

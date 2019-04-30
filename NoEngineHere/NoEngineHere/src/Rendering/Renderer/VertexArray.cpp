@@ -9,25 +9,33 @@ namespace noe{
 		glBindVertexArray(_vertexArrayID);
 	}
 
-	void VertexArray::addBuffer(const VertexBuffer& buffer, const VertexBufferLayout& dataLayout){
+	void VertexArray::addBuffer(VertexBuffer& buffer, const VertexBufferLayout& dataLayout){
+		std::cout << "adding buffer" << std::endl;
 		static int __cunt__ = 0;
-		std::cout << __cunt__;
+		std::cout << __cunt__ << std::endl;
 		
 		//buffer.bind();
-		_buffers[__cunt__] = buffer;
+		if(__cunt__ == 0 || __cunt__ == 1)
+			_buffers[__cunt__] = &buffer;
 		
 		const std::vector<VertexBufferElement>& elements = dataLayout.getElements();
-		if(__cunt__ == elements.size()) __cunt__ = -1; else __cunt__++;
+		if(__cunt__ != 4 || __cunt__ != 3)
+			if(__cunt__ == 2) __cunt__ = 4; 
+			else __cunt__++;
+		else __cunt__ = 3;
 
 		unsigned int offset = 0;
 
-		if(__cunt__ == -1){
-			_buffers[0].bind();
-			glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);//f f f  c c c  c c c  c c c
-			_buffers[1].bind();
-			glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 0, 0);//f f f  c c c  c c c  c c c
+		if(__cunt__ == 4){
+			std::cout << "bound both vertexattribs" << std::endl;
+			glBindVertexArray(_vertexArrayID);
+			_buffers[0]->bind();
+			glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);//f f f  c c c  c c c  c c c
+			_buffers[1]->bind();
+			glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, 0, (void*)0);//f f f  c c c  c c c  c c c
+			std::cout << "called" << std::endl;
 		}
-
+		/*
 		for(unsigned int i = 0; i < elements.size(); i++){
 			//_buffers[i].bind();
 			//_buffers[1].bind();
@@ -37,7 +45,7 @@ namespace noe{
 			//glVertexAttribPointer(i, element.count, element.type, element.normalized, 0, (const void*)offset);//f f f  c c c  c c c  c c c
 			//glVertexAttribPointer(i, element.count, element.type, element.normalized, 0, (const void*)offset);//f f f  c c c  c c c  c c c
 			//offset += element.count * VertexBufferElement::sizeOfType(element.type);
-		}
+		}*/
 
 	}
 

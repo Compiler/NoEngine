@@ -10,11 +10,11 @@ namespace noe{
 
 	private:
 		unsigned int _vertexArrayID;
-		VertexBuffer _buffers[2];
+		VertexBuffer* _buffers[2];
 	public:
 		VertexArray();
 
-		void addBuffer(const VertexBuffer& buffer, const VertexBufferLayout& dataLayout);
+		void addBuffer(VertexBuffer& buffer, const VertexBufferLayout& dataLayout);
 		void bind() const;
 		void unbind() const;
 

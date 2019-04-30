@@ -8,7 +8,6 @@ namespace noe{
 
 		_shapeShader.init(vs, fs);
 
-
 		_shapeLayout.push<float>(3);
 		_shapeLayout.push<float>(4);
 	}
