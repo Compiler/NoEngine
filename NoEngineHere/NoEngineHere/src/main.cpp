@@ -148,13 +148,13 @@ int main(){
 		glfwPollEvents();
 		
 		shapeRenderer.clear();
-		shapeRenderer.setMatrices(model, view, projection);
 
 		shapeRenderer.begin();
-		shapeRenderer.drawTriangle(glm::vec3(-1.0f, 0.0f, 0.0f), glm::vec3(1.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec4(1.0f, .0f, .0f, 1.0f));
-		//shapeRenderer.drawTriangle(glm::vec3(-1.0f, 0.0f, 0.0f), glm::vec3(1.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec4(1.0f, .0f, .0f, 1.0f));
+		shapeRenderer.drawTriangle(glm::vec3(-1.0f, 0.0f, 0.0f), glm::vec3(1.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec4(1.0f, 1.0f, 1.0f, 1.0f));
+		//shapeRenderer.drawTriangle(glm::vec3(-100.0f, 0.0f, 0.0f), glm::vec3(100.0f, 0.0f, 0.0f), glm::vec3(0.0f, 100.0f, 0.0f), glm::vec4(1.0f, .0f, .0f, 1.0f));
 		shapeRenderer.end();
-
+		//shapeRenderer.doSomeFuckingShit();
+		shapeRenderer.setMatrices(model, view, projection);
 
 
 		glfwSwapBuffers(window);

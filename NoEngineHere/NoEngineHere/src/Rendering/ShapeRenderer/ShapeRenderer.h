@@ -10,6 +10,7 @@
 #include "../Renderer/Renderer.h"
 #include "../Shaders/Shader.h"
 #include <string>
+
 #include <vector>
 
 namespace noe{
@@ -18,6 +19,8 @@ namespace noe{
 	class ShapeRenderer{
 
 	private:
+
+		
 
 		VertexArray _shapeVertexArray;
 		VertexBuffer _shapeVerticesBuffer, _shapeColorBuffer;
@@ -43,6 +46,7 @@ namespace noe{
 
 		void end();
 
+		void doSomeFuckingShit();
 
 		void clear() const;
 

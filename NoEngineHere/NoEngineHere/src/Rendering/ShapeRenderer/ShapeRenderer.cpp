@@ -15,6 +15,9 @@ namespace noe{
 
 	void ShapeRenderer::begin(){
 
+
+		_shapeShader.bind();
+
 		_trianglePositions.clear();
 		_triangleColors.clear();
 		_packedData.clear();
@@ -37,8 +40,8 @@ namespace noe{
 		void* positionData = reinterpret_cast<void*>(_trianglePositions.data());
 		void* colorData = reinterpret_cast<void*>(_triangleColors.data());
 		
-		_shapeVerticesBuffer.init(positionData, _trianglePositions.size() * 4);
-		_shapeColorBuffer.init(colorData, _triangleColors.size() * 4);
+		_shapeVerticesBuffer.init(positionData, _trianglePositions.size() * 4, GL_DYNAMIC_DRAW);
+		_shapeColorBuffer.init(colorData, _triangleColors.size() * 4, GL_DYNAMIC_DRAW);
 
 		_shapeVertexArray.addBuffer(_shapeVerticesBuffer, _shapeLayout);
 		_shapeVertexArray.addBuffer(_shapeColorBuffer, _shapeLayout);
@@ -51,6 +54,53 @@ namespace noe{
 
 	void ShapeRenderer::clear() const {
 		_renderer.clear();
+	}
+
+
+
+
+	void ShapeRenderer::doSomeFuckingShit(){
+
+		float vertices[] = {
+			-1, 0, 0,
+			 1, 0, 0,
+			 0, 1, 1,
+		};
+
+		float colors[] = {
+			 1, 0, 0, 1,
+			 1, 0, 0, 1,
+			 1, 0, 0, 1,
+		};
+	
+		GLuint vao;
+
+		glGenVertexArrays(1, &vao);
+		glBindVertexArray(vao);
+
+		GLuint vb, cb;
+
+		/*glGenBuffers(1, &vb);
+		glBindBuffer(GL_ARRAY_BUFFER, vb);
+		glBufferData(GL_ARRAY_BUFFER, 4 * 3 * sizeof(float), vertices, GL_STATIC_DRAW);*/
+
+		_shapeVerticesBuffer.init(vertices, 3 * 3 * sizeof(float), GL_STATIC_DRAW);
+		_shapeVerticesBuffer.bind();
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
+		glEnableVertexAttribArray(0);
+	
+		/*glGenBuffers(1, &cb);
+		glBindBuffer(GL_ARRAY_BUFFER, cb);
+		glBufferData(GL_ARRAY_BUFFER, 4 * 4 * sizeof(float), colors, GL_STATIC_DRAW);*/
+		_shapeColorBuffer.init(colors, 3 * 4 * sizeof(float), GL_STATIC_DRAW);
+		_shapeColorBuffer.bind();
+
+		glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, 0, (void*)0);
+		glEnableVertexAttribArray(1);
+
+
+		glDrawArrays(GL_TRIANGLES, 0, 3);
+
 	}
 
 

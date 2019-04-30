@@ -23,7 +23,7 @@ namespace noe{
 		void bind() const ;
 		void unbind() const ;
 
-
+		unsigned int getBufferID() const{ return _bufferID;  }
 		unsigned int getBufferSize() const{ return _bufferSize; }
 
 		VertexBuffer& operator=(const VertexBuffer& copy) = delete;

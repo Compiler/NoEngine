@@ -10,6 +10,10 @@ namespace noe{
 	}
 
 	void VertexArray::addBuffer(VertexBuffer& buffer, const VertexBufferLayout& dataLayout){
+		if(_bufferCache.find(buffer.getBufferID()) == _bufferCache.end()){
+			std::cout << "new buffer created" << std::endl;
+			_bufferCache[buffer.getBufferID()] = 1;
+		} else std::cout << "buffer copy prevented" << std::endl;
 		std::cout << "adding buffer" << std::endl;
 		static int __cunt__ = 0;
 		std::cout << __cunt__ << std::endl;
@@ -26,13 +30,16 @@ namespace noe{
 
 		unsigned int offset = 0;
 
-		if(__cunt__ == 4){
+		if(_bufferCache.size() == 2){
 			std::cout << "bound both vertexattribs" << std::endl;
 			glBindVertexArray(_vertexArrayID);
-			_buffers[0]->bind();
+			glBindBuffer(GL_ARRAY_BUFFER, 1);
 			glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);//f f f  c c c  c c c  c c c
-			_buffers[1]->bind();
+			glEnableVertexAttribArray(0);
+
+			glBindBuffer(GL_ARRAY_BUFFER, 2);
 			glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, 0, (void*)0);//f f f  c c c  c c c  c c c
+			glEnableVertexAttribArray(1);
 			std::cout << "called" << std::endl;
 		}
 		/*
