@@ -3,7 +3,6 @@
 #include <cmath>
 #include <glm/vec3.hpp>
 #include "Rendering/Shaders/Shader.h"
-#include "Rendering/ShapeRenderer/Triangle.h"
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
@@ -15,6 +14,8 @@
 #include "Rendering/Renderer/Renderer.h"
 
 #include "Rendering/ShapeRenderer/ShapeRenderer.h"
+#include "Rendering/ShapeRenderer/Triangle.h"
+#include "Rendering/ShapeRenderer/Rectangle.h"
 
 bool w_pressed, s_pressed, a_pressed, d_pressed, rotToggle;
 
@@ -152,8 +153,10 @@ int main(){
 
 	noe::Triangle triangle1;
 	triangle1.setVertices(glm::vec3(-1.0f, 0.0f, 0.0f), glm::vec3(1.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-	triangle1.setColor(noe::Color(1,0,0));//red
+	triangle1.setColor(noe::Color(1.0f,1.0f,1.0f));//white
 	
+	noe::Rectangle rectangle1(glm::vec3(0.0f, 0.0f, 0.0f), 1, 1);
+	rectangle1.setColor(noe::Color(0.0f, 1.0f, 0.0f));
 
 	while(!glfwWindowShouldClose(window)){
 		

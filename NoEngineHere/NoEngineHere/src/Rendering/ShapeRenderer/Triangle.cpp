@@ -37,12 +37,19 @@ namespace noe{
 	}
 
 
-	void Triangle::setVertices(std::vector<glm::vec3> vertices){
-		shapeVertices[0] = vertices[0]; shapeVertices[1] = vertices[1]; shapeVertices[2] = vertices[2];
+	void Triangle::setVertices(const std::vector<glm::vec3>& vertices){
+		if(vertices.size() != 4){
+			exit(-4);
+		}
+		shapeVertices[0].x = vertices[0].x; shapeVertices[0].y = vertices[0].y; shapeVertices[0].z = vertices[0].z;
+		shapeVertices[1].x = vertices[1].x; shapeVertices[1].y = vertices[1].y; shapeVertices[1].z = vertices[1].z;
+		shapeVertices[2].x = vertices[2].x; shapeVertices[2].y = vertices[2].y; shapeVertices[2].z = vertices[2].z;
 	}
 
 	void Triangle::setVertices(glm::vec3 vertex1, glm::vec3 vertex2, glm::vec3 vertex3){
-		shapeVertices[0] = vertex1; shapeVertices[1] = vertex2; shapeVertices[2] = vertex3;
+		shapeVertices[0].x = vertex1.x, shapeVertices[0].y = vertex1.y; shapeVertices[0].z = vertex1.z;
+		shapeVertices[1].x = vertex2.x, shapeVertices[1].y = vertex2.y; shapeVertices[1].z = vertex2.z;
+		shapeVertices[2].x = vertex3.x, shapeVertices[2].y = vertex3.y; shapeVertices[2].z = vertex3.z;
 	}
 
 

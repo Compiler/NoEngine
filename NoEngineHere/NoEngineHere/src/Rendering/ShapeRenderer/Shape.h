@@ -12,7 +12,7 @@ namespace noe{
 		//Shape(){}
 
 		virtual void translate(float xAmount, float yAmount, float zAmount) = 0;
-		virtual void setVertices(std::vector<glm::vec3> vertices) = 0;
+		virtual void setVertices(const std::vector<glm::vec3>& vertices) = 0;
 		virtual void translateX(float amount) = 0;
 		virtual void translateY(float amount) = 0;
 		virtual void translateZ(float amount) = 0;

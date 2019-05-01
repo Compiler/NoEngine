@@ -31,7 +31,7 @@ namespace noe{
 
 
 		void translate(float xAmount, float yAmount, float zAmount);
-		void setVertices(std::vector<glm::vec3> vertices);
+		void setVertices(const std::vector<glm::vec3>& vertices);
 		void translateX(float amount);
 		void translateY(float amount);
 		void translateZ(float amount);
