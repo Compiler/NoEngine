@@ -14,7 +14,7 @@ namespace noe{
 
 
 
-	Rectangle::Rectangle(glm::vec3 bottomLeftPos, float width, float height): _width(width), _height(height), _bottomLeftPosition(bottomLeftPos){
+	Rectangle::Rectangle(const glm::vec3& bottomLeftPos, float width, float height): _width(width), _height(height), _bottomLeftPosition(bottomLeftPos){
 		this->shapeVertices.reserve(_VERT_COUNT);
 		this->shapeVertices.emplace_back(this->_bottomLeftPosition);
 		this->shapeVertices.emplace_back(glm::vec3(this->_bottomLeftPosition.x + this->_width, this->_bottomLeftPosition.y, this->_bottomLeftPosition.z));

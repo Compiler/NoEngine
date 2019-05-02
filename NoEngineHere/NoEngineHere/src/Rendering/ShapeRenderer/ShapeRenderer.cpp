@@ -61,6 +61,29 @@ namespace noe{
 	}
 
 
+	void ShapeRenderer::drawRect(Rectangle& rectangle){
+		std::vector<glm::vec3> vertices = rectangle.getVertices();
+		Color color = rectangle.getColor();
+		_trianglePositions.emplace_back(vertices.at(0).x); _trianglePositions.emplace_back(vertices.at(0).y); _trianglePositions.emplace_back(vertices.at(0).z);
+		_trianglePositions.emplace_back(vertices.at(1).x); _trianglePositions.emplace_back(vertices.at(1).y); _trianglePositions.emplace_back(vertices.at(1).z);
+		_trianglePositions.emplace_back(vertices.at(2).x); _trianglePositions.emplace_back(vertices.at(2).y); _trianglePositions.emplace_back(vertices.at(2).z);
+		_triangleColors.emplace_back(color.r); _triangleColors.emplace_back(color.g); _triangleColors.emplace_back(color.b); _triangleColors.emplace_back(color.a);
+		_triangleColors.emplace_back(color.r); _triangleColors.emplace_back(color.g); _triangleColors.emplace_back(color.b); _triangleColors.emplace_back(color.a);
+		_triangleColors.emplace_back(color.r); _triangleColors.emplace_back(color.g); _triangleColors.emplace_back(color.b); _triangleColors.emplace_back(color.a);
+		_trianglePositions.emplace_back(vertices.at(3).x); _trianglePositions.emplace_back(vertices.at(3).y); _trianglePositions.emplace_back(vertices.at(3).z);
+		_trianglePositions.emplace_back(vertices.at(4).x); _trianglePositions.emplace_back(vertices.at(4).y); _trianglePositions.emplace_back(vertices.at(4).z);
+		_trianglePositions.emplace_back(vertices.at(5).x); _trianglePositions.emplace_back(vertices.at(5).y); _trianglePositions.emplace_back(vertices.at(5).z);
+		_triangleColors.emplace_back(color.r); _triangleColors.emplace_back(color.g); _triangleColors.emplace_back(color.b); _triangleColors.emplace_back(color.a);
+		_triangleColors.emplace_back(color.r); _triangleColors.emplace_back(color.g); _triangleColors.emplace_back(color.b); _triangleColors.emplace_back(color.a);
+		_triangleColors.emplace_back(color.r); _triangleColors.emplace_back(color.g); _triangleColors.emplace_back(color.b); _triangleColors.emplace_back(color.a);
+	}
+
+	void ShapeRenderer::drawRect(const glm::vec3& bottomLeftPos, float width, float height){
+		Rectangle drawn(bottomLeftPos, width, height);
+		drawRect(drawn);
+	}
+
+
 	void ShapeRenderer::clear() const {
 		_renderer.clear();
 	}

@@ -11,6 +11,7 @@
 #include "../Shaders/Shader.h"
 #include <string>
 #include "Triangle.h"
+#include "Rectangle.h"
 #include <vector>
 
 namespace noe{
@@ -44,6 +45,10 @@ namespace noe{
 		void drawTriangle(const glm::vec3& firstVertex, const glm::vec3& secondVertex, const glm::vec3& thirdVertex, const glm::vec3& color);
 		void drawTriangle(const glm::vec3& firstVertex, const glm::vec3& secondVertex, const glm::vec3& thirdVertex, const glm::vec4& color);
 		void drawTriangle(Triangle& triangle);
+
+
+		void drawRect(Rectangle& rectangle);
+		void drawRect(const glm::vec3& bottomLeftPos, float width, float height);
 
 		void end();
 

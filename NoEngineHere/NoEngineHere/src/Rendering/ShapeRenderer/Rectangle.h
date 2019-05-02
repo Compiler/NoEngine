@@ -9,7 +9,7 @@ namespace noe{
 	class Rectangle: public Shape{
 	public:
 		Rectangle();
-		Rectangle(glm::vec3 bottomLeftPos, float width, float height);
+		Rectangle(const glm::vec3& bottomLeftPos, float width, float height);
 
 		void setPosition(const glm::vec3& bottomLeftPos);
 		void setDimensions(float width, float height);

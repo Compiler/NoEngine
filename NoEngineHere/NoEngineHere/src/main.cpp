@@ -155,8 +155,10 @@ int main(){
 	triangle1.setVertices(glm::vec3(-1.0f, 0.0f, 0.0f), glm::vec3(1.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 	triangle1.setColor(noe::Color(1.0f,1.0f,1.0f));//white
 	
-	noe::Rectangle rectangle1(glm::vec3(0.0f, 0.0f, 0.0f), 1, 1);
+	noe::Rectangle rectangle1(glm::vec3(2.0f, 1.0f, 0.0f), 1, 1);
 	rectangle1.setColor(noe::Color(0.0f, 1.0f, 0.0f));
+	rectangle1.setPosition(glm::vec3(-1,-1,0));
+	
 
 	while(!glfwWindowShouldClose(window)){
 		
@@ -173,6 +175,7 @@ int main(){
 		shapeRenderer.begin();
 		shapeRenderer.drawTriangle(triangle1);
 		shapeRenderer.drawTriangle(glm::vec3(-1.5f, 0.0f, 0.0f), glm::vec3(1.5f, 0.0f, 0.0f), glm::vec3(0.0f, 0.5f, 0.0f), glm::vec4(1.0f, 1.0f, 0.0f, 1.0f));
+		shapeRenderer.drawRect(rectangle1);
 		shapeRenderer.end();
 		shapeRenderer.setMatrices(model, view, projection);
 
