@@ -19,25 +19,26 @@ namespace noe{
 
 
 		float getX(){
-			if(shapeVertices.empty() != true)
-				return shapeVertices.at(0).x;
+			if(p_shapeVertices.empty() != true)
+				return p_shapeVertices.at(0).x;
+			return -4;
 		}
 
 		std::vector<glm::vec3> getVertices() {
-			return shapeVertices;
+			return p_shapeVertices;
 		}
 
-		Color getColor() const{ return this->shapeColor; }
-		glm::vec4 getColorVec() const{ return glm::vec4(this->shapeColor.r, this->shapeColor.g, this->shapeColor.b, this->shapeColor.a); }
+		Color getColor() const{ return this->p_shapeColor; }
+		glm::vec4 getColorVec() const{ return glm::vec4(this->p_shapeColor.r, this->p_shapeColor.g, this->p_shapeColor.b, this->p_shapeColor.a); }
 
-		void setColor(const Color& newColor){ this->shapeColor = newColor; }
+		void setColor(const Color& newColor){ this->p_shapeColor = newColor; }
 		void setColor(float r, float g, float b, float a = 1){ 
-			this->shapeColor.r = r; this->shapeColor.g = g; this->shapeColor.b = b; this->shapeColor.a = a;
+			this->p_shapeColor.r = r; this->p_shapeColor.g = g; this->p_shapeColor.b = b; this->p_shapeColor.a = a;
 		}
 
 	protected:
-		std::vector<glm::vec3> shapeVertices;
-		Color shapeColor;
+		std::vector<glm::vec3> p_shapeVertices;
+		Color p_shapeColor;
 	};
 
 }
