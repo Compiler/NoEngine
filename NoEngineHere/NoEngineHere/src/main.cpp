@@ -45,14 +45,12 @@ void mouse_callback(GLFWwindow* window, double xpos, double ypos){
 		firstMouse = false;
 	}
 
-	std::cout << "[(" << xpos << ", " << ypos << "), ";
 
 	float xoffset = xpos - lastX;
 	float yoffset = lastY - ypos; // reversed since y-coordinates go from bottom to top
 	lastX = xpos;
 	lastY = ypos;
 
-	std::cout << "(" << xoffset << ", " << yoffset << ")]" << std::endl;
 	camera.control3DHeadMovement(xoffset, yoffset);
 }
 
@@ -92,14 +90,14 @@ int main(){
 
 	glfwSetCursorPosCallback(window, mouse_callback);
 	glfwSetKeyCallback(window, key_callback);
-	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
 
 	std::string vertexShaderPath = "../NoEngineHere/src/Rendering/Shaders/glsl/shader_v.glsl";
 	std::string fragmentShaderPath = "../NoEngineHere/src/Rendering/Shaders/glsl/shader_f.glsl";
 
 
-	noe::PerspectiveCamera camera(800, 600, glm::vec3(0.0f, 0.0f, 3.0f));
+	//noe::PerspectiveCamera camera(800, 600, glm::vec3(0.0f, 0.0f, 3.0f));
 	//camera.translate(noe::Camera::DIRECTION::FORWARD, deltaTime);
 
 
@@ -159,7 +157,9 @@ int main(){
 		shapeRenderer.drawTriangle(glm::vec3(1.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(0.0f, 0.0f, -1.0f), glm::vec4(0.0f, 0.0f, 1.0f, 1.0f));
 		//shapeRenderer.drawRect(rectangle1);
 		shapeRenderer.end();
-		//camera.update();
+		//camera.setYaw(0.1f);
+		std::cout << "(" << camera.getYaw() << ", " << camera.getPitch() << ")]" << std::endl;
+		camera.update();
 		shapeRenderer.setMatrices(model, view, camera.getProjectionMatrices());
 
 

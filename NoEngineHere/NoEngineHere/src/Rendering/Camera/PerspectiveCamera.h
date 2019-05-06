@@ -1,7 +1,7 @@
 #pragma once
 #include "Camera.h"
 
-
+#include <iostream>
 namespace noe{
 	class PerspectiveCamera: Camera{
 
@@ -16,6 +16,12 @@ namespace noe{
 		void rotate(float angleDegrees, const glm::vec3& axisOfRotation);
 		void translate(DIRECTION direction, float deltaTime);
 		void control3DHeadMovement(float xoffset, float yoffset, bool constrainPitch = true);
+		void setYaw(float yaw){ _yaw += yaw; }
+		void setPitch(float pitch){ _pitch += pitch; }
+
+		float getYaw(){ return _yaw; }
+		float getPitch(){ return _pitch; }
+
 
 		glm::mat4 getWorldToViewMatrix()const;
 		glm::mat4 getProjectionMatrices()const;

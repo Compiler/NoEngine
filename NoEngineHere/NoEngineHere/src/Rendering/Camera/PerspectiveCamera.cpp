@@ -1,5 +1,7 @@
 #include "PerspectiveCamera.h"
 
+
+
 namespace noe{
 
 	PerspectiveCamera::PerspectiveCamera(float viewportWidth, float viewportHeight, glm::vec3 position, float near, float far, float yaw, float pitch)
@@ -61,16 +63,16 @@ namespace noe{
 		xoffset *= 0.1f;
 		yoffset *= 0.1f;
 
-
-
-		_yaw += xoffset;
-		_pitch += yoffset;
+		std::cout << _yaw << " + " << xoffset << " = ";
+		this->_yaw += xoffset;
+		this->_pitch += yoffset;
+		std::cout << _yaw << std::endl;
 
 		if(constrainPitch){
-			if(_pitch > 89.0f)
-				_pitch = 89.0f;
-			if(_pitch < -89.0f)
-				_pitch = -89.0f;
+			if(this->_pitch > 89.0f)
+				this->_pitch = 89.0f;
+			if(this->_pitch < -89.0f)
+				this->_pitch = -89.0f;
 		}
 
 		

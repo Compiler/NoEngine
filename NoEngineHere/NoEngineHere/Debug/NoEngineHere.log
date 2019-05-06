@@ -1,3 +1,10 @@
-﻿  PerspectiveCamera.cpp
+﻿  main.cpp
 c:\noengine\noenginehere\noenginehere\src\rendering\camera\camera.h(13): warning C4091: 'static ': ignored on left of 'noe::Camera::DIRECTION' when no variable is declared
+c:\noengine\noenginehere\noenginehere\src\main.cpp(43): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\noengine\noenginehere\noenginehere\src\main.cpp(44): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\noengine\noenginehere\noenginehere\src\main.cpp(49): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+c:\noengine\noenginehere\noenginehere\src\main.cpp(50): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+c:\noengine\noenginehere\noenginehere\src\main.cpp(51): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\noengine\noenginehere\noenginehere\src\main.cpp(52): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\noengine\noenginehere\noenginehere\src\main.cpp(142): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
   NoEngineHere.vcxproj -> C:\NoEngine\NoEngineHere\Debug\NoEngineHere.exe
