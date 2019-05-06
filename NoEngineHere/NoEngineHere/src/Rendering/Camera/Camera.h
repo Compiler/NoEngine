@@ -1,8 +1,8 @@
 #pragma once
 #include <glm/vec3.hpp>
-//#include <glm/glm.hpp>
+#include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
-//#include <glm/gtc/type_ptr.hpp>
+#include <glm/gtx/rotate_vector.hpp>
 
 namespace noe{
 
@@ -16,13 +16,16 @@ namespace noe{
 		//	translate x,y,z amount
 		virtual void translate(const glm::vec3& translation) = 0;
 
-		/*	rotate angleRadians around axisOfRotation
+		/*	rotate angleDegrees around axisOfRotation
 			example: 45, (1,0,0) = 45 degrees around x axis	*/
-		virtual void rotate(float angleRadians, const glm::vec3& axisOfRotation) = 0;
+		virtual void rotate(float angleDegrees, const glm::vec3& axisOfRotation) = 0;
 
 
 		// lookAt the position.. duh
-		virtual void lookAt(const glm::vec3& position) = 0;
+		//virtual void lookAt(const glm::vec3& position) = 0;
+
+
+		virtual glm::mat4 getProjectionMatrices() = 0;
 
 
 	private:
@@ -31,7 +34,7 @@ namespace noe{
 
 	protected:
 
-		glm::mat4 projection, view;
+		glm::mat4 p_projection, p_view;
 		glm::vec3 p_cameraPosition, p_cameraTarget, p_cameraDirection, p_cameraUp;
 
 		glm::vec2 viewport;

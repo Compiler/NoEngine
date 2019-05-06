@@ -18,7 +18,6 @@ namespace noe{
 		unsigned int offset = 0;
 
 		if(_bufferCache.size() == 2){
-			std::cout << "bound both vertexattribs" << std::endl;
 			glBindVertexArray(_vertexArrayID);
 			glBindBuffer(GL_ARRAY_BUFFER, 1);
 			glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);//f f f  c c c  c c c  c c c
@@ -27,7 +26,6 @@ namespace noe{
 			glBindBuffer(GL_ARRAY_BUFFER, 2);
 			glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, 0, (void*)0);//f f f  c c c  c c c  c c c
 			glEnableVertexAttribArray(1);
-			std::cout << "called" << std::endl;
 		}
 		
 	//	for(unsigned int i = 0; i < elements.size(); i++){

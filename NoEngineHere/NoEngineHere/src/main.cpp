@@ -17,6 +17,8 @@
 #include "Rendering/ShapeRenderer/Triangle.h"
 #include "Rendering/ShapeRenderer/Rectangle.h"
 
+#include "Rendering/Camera/PerspectiveCamera.h"
+
 bool w_pressed, s_pressed, a_pressed, d_pressed, rotToggle;
 
 
@@ -24,7 +26,7 @@ bool w_pressed, s_pressed, a_pressed, d_pressed, rotToggle;
 void cameraControl(glm::mat4 &_view, glm::mat4 &_model, glm::mat4 &_projection, float _speed){
 
 
-	if(rotToggle){
+	if(!rotToggle){
 		if(w_pressed){
 			std::cout << "w action" << std::endl;
 			_view = glm::translate(_view, glm::vec3(0, 0, _speed));
@@ -40,26 +42,26 @@ void cameraControl(glm::mat4 &_view, glm::mat4 &_model, glm::mat4 &_projection, 
 		}
 		if(d_pressed){
 			std::cout << "d action" << std::endl;
-			_model = glm::rotate(_model, glm::radians(_speed * 100), glm::vec3(0.0f, 1.0f, 0.0f));
+			//_model = glm::rotate(_model, glm::radians(_speed * 100), glm::vec3(0.0f, 1.0f, 0.0f));
 
 		}
 	} else{
 		if(w_pressed){
 			std::cout << "t_w action" << std::endl;
-			_model = glm::rotate(_model, glm::radians(_speed * 100), glm::vec3(1.0f, 0.0f, -1.0f));
+			//_model = glm::rotate(_model, glm::radians(_speed * 100), glm::vec3(1.0f, 0.0f, -1.0f));
 		}
 		if(s_pressed){
 			std::cout << "t_s action" << std::endl;
-			_model = glm::rotate(_model, glm::radians(_speed * 100), glm::vec3(-1.0f, 0.0f, 1.0f));
+			//_model = glm::rotate(_model, glm::radians(_speed * 100), glm::vec3(-1.0f, 0.0f, 1.0f));
 		}
 		if(a_pressed){
 			std::cout << "t_a action" << std::endl;
-			_model = glm::rotate(_model, glm::radians(_speed * 100), glm::vec3(1.0f, 1.0f, -1.0f));
+			//_model = glm::rotate(_model, glm::radians(_speed * 100), glm::vec3(1.0f, 1.0f, -1.0f));
 
 		}
 		if(d_pressed){
 			std::cout << "t_d action" << std::endl;
-			_model = glm::rotate(_model, glm::radians(_speed * 100), glm::vec3(-1.0f, -1.0f, 1.0f));
+			//_model = glm::rotate(_model, glm::radians(_speed * 100), glm::vec3(-1.0f, -1.0f, 1.0f));
 
 		}
 
@@ -130,18 +132,23 @@ int main(){
 	std::string fragmentShaderPath = "../NoEngineHere/src/Rendering/Shaders/glsl/shader_f.glsl";
 
 
+	noe::PerspectiveCamera camera(800, 600, glm::vec3(0.0f, 0.0f, 3.0f));
+
+	//camera.rotate(30, glm::vec3(0, 1, 0));
+	//(float)800 / (float)600
+	//1920, 1080
 
 	glm::mat4 model = glm::mat4(1.0f);
-	model = glm::rotate(model, glm::radians(45.f), glm::vec3(1.0f, -1.0f, 0.0f));
+	//model = glm::rotate(model, glm::radians(45.f), glm::vec3(1.0f, -1.0f, 0.0f));
 	glm::mat4 view = glm::mat4(1.0f);
 
 
 	// note that we're translating the scene in the reverse direction of where we want to move
-	glm::vec3 cpos = glm::vec3(0.0f, 0.0f, -3.0f);
-	view = glm::translate(view, cpos);
-
-	glm::mat4 projection = glm::mat4(1.0f);
-	projection = glm::perspective(glm::radians(45.0f), (float)800 / (float)600, 0.1f, 100.0f);
+	//glm::vec3 cpos = glm::vec3(0.0f, 0.0f, -3.0f);
+	//view = camera.getWorldToViewMatrix(); //*glm::translate(view, cpos);
+	//view = glm::translate(view, cpos);
+	glm::mat4 projection = camera.getProjectionMatrices();
+	//glm::mat4 projection = glm::perspective(glm::radians(45.0f), (float)(800 / 600), 0.1f, 100.0f);
 
 
 
@@ -160,10 +167,10 @@ int main(){
 	rectangle1.setPosition(glm::vec3(-1,-1,0));
 	
 
+
 	while(!glfwWindowShouldClose(window)){
 		
 		cameraControl(view, model, projection, speed);
-		std::cout << triangle1.getX();
 		if(triangle1.getX() > -1.5f)
 			triangle1.translateX(-0.001f);
 
@@ -173,9 +180,10 @@ int main(){
 		shapeRenderer.clear();
 
 		shapeRenderer.begin();
-		shapeRenderer.drawTriangle(triangle1);
-		shapeRenderer.drawTriangle(glm::vec3(-1.5f, 0.0f, 0.0f), glm::vec3(1.5f, 0.0f, 0.0f), glm::vec3(0.0f, 0.5f, 0.0f), glm::vec4(1.0f, 1.0f, 0.0f, 1.0f));
-		shapeRenderer.drawRect(rectangle1);
+		//shapeRenderer.drawTriangle(triangle1);
+		shapeRenderer.drawTriangle(glm::vec3(1.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(0.0f, 0.0f, 1.0f), glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
+		shapeRenderer.drawTriangle(glm::vec3(1.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(0.0f, 0.0f, -1.0f), glm::vec4(0.0f, 0.0f, 1.0f, 1.0f));
+		//shapeRenderer.drawRect(rectangle1);
 		shapeRenderer.end();
 		shapeRenderer.setMatrices(model, view, projection);
 
