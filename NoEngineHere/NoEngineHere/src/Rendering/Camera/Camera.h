@@ -10,22 +10,24 @@ namespace noe{
 
 	public:
 
+		static enum DIRECTION{ FORWARD, BACKWARD, LEFT, RIGHT };
+
 		Camera(){}
 		Camera(float viewportWidth, float viewportHeight, glm::vec3 position = glm::vec3(0.0f, 0.0f, 0.0f));
 
 		//	translate x,y,z amount
-		virtual void translate(const glm::vec3& translation) = 0;
+		//virtual void translate(const glm::vec3& translation) = 0;
 
 		/*	rotate angleDegrees around axisOfRotation
 			example: 45, (1,0,0) = 45 degrees around x axis	*/
-		virtual void rotate(float angleDegrees, const glm::vec3& axisOfRotation) = 0;
+		virtual void translate(DIRECTION direction, float deltaTime) = 0;
 
 
 		// lookAt the position.. duh
 		//virtual void lookAt(const glm::vec3& position) = 0;
 
 
-		virtual glm::mat4 getProjectionMatrices() = 0;
+		virtual glm::mat4 getProjectionMatrices() const = 0;
 
 
 	private:
@@ -35,7 +37,7 @@ namespace noe{
 	protected:
 
 		glm::mat4 p_projection, p_view;
-		glm::vec3 p_cameraPosition, p_cameraTarget, p_cameraDirection, p_cameraUp;
+		glm::vec3 p_cameraPosition, p_cameraDirection;
 
 		glm::vec2 viewport;
 

@@ -1,4 +1,3 @@
 ﻿  PerspectiveCamera.cpp
-  main.cpp
-  Generating Code...
+c:\noengine\noenginehere\noenginehere\src\rendering\camera\camera.h(13): warning C4091: 'static ': ignored on left of 'noe::Camera::DIRECTION' when no variable is declared
   NoEngineHere.vcxproj -> C:\NoEngine\NoEngineHere\Debug\NoEngineHere.exe
