@@ -16,7 +16,7 @@ namespace noe{
 		Camera(float viewportWidth, float viewportHeight, glm::vec3 position = glm::vec3(0.0f, 0.0f, 0.0f));
 
 		//	translate x,y,z amount
-		//virtual void translate(const glm::vec3& translation) = 0;
+		virtual void translate(const glm::vec3& translation) = 0;
 
 		/*	rotate angleDegrees around axisOfRotation
 			example: 45, (1,0,0) = 45 degrees around x axis	*/
@@ -39,7 +39,7 @@ namespace noe{
 		glm::mat4 p_projection, p_view;
 		glm::vec3 p_cameraPosition, p_cameraDirection;
 
-		glm::vec2 viewport;
+		glm::vec2 p_viewport;
 
 	};
 

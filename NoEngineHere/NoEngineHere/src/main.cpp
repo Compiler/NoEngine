@@ -19,6 +19,11 @@
 
 #include "Rendering/Camera/PerspectiveCamera.h"
 
+
+#include "externs/imgui/imgui.h"
+#include "externs/imgui/imgui_impl_glfw.h"
+#include "externs/imgui/imgui_impl_opengl3.h"
+
 bool w_pressed, s_pressed, a_pressed, d_pressed, rotToggle;
 
 
@@ -28,11 +33,13 @@ float lastFrame = 0.0f;
 
 
 bool firstMouse = true;
-float lastX = 800 / 2.0f;
-float lastY = 600 / 2.0f;
+float lastX = 1280 / 2.0f;
+float lastY = 720 / 2.0f;
 
+int width = 1280;
+int height = 720;
 
-noe::PerspectiveCamera camera(800, 600, glm::vec3(0.0f, 0.0f, 3.0f));
+noe::PerspectiveCamera camera(width, height, glm::vec3(0.0f, 0.0f, 3.0f));
 
 void cameraControl(noe::PerspectiveCamera& camera, glm::mat4 &_projection, float _speed);
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode);
@@ -51,9 +58,8 @@ void mouse_callback(GLFWwindow* window, double xpos, double ypos){
 	lastX = xpos;
 	lastY = ypos;
 
-	camera.control3DHeadMovement(xoffset, yoffset);
+	//camera.control3DHeadMovement(xoffset, yoffset);
 }
-
 
 
 int main(){
@@ -62,7 +68,7 @@ int main(){
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);//setting context to ?.3      = 3.3
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
-	GLFWwindow *window = glfwCreateWindow(800, 600, "NoEngine ", nullptr, nullptr);//returns pointer to GLFWwindow object
+	GLFWwindow *window = glfwCreateWindow(width, height, "NoEngine ", nullptr, nullptr);//returns pointer to GLFWwindow object
 	glEnable(GL_DEPTH_TEST);
 	// Accept fragment if it closer to the camera than the former one
 	glDepthFunc(GL_LESS);
@@ -82,40 +88,22 @@ int main(){
 	}
 
 
-	int width, height;
-	glfwGetFramebufferSize(window, &width, &height);
+	//int width, height;
+	//glfwGetFramebufferSize(window, &width, &height);
 	glViewport(0, 0, width, height);
 	std::cout << width;
 
 
 	glfwSetCursorPosCallback(window, mouse_callback);
 	glfwSetKeyCallback(window, key_callback);
-	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+	//glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
 
 	std::string vertexShaderPath = "../NoEngineHere/src/Rendering/Shaders/glsl/shader_v.glsl";
 	std::string fragmentShaderPath = "../NoEngineHere/src/Rendering/Shaders/glsl/shader_f.glsl";
 
 
-	//noe::PerspectiveCamera camera(800, 600, glm::vec3(0.0f, 0.0f, 3.0f));
-	//camera.translate(noe::Camera::DIRECTION::FORWARD, deltaTime);
-
-
-	//camera.rotate(0, glm::vec3(0, 0, 0));
-	//(float)800 / (float)600
-	//1920, 1080
-
-	glm::mat4 model = glm::mat4(1.0f);
-	//model = glm::rotate(model, glm::radians(45.f), glm::vec3(1.0f, -1.0f, 0.0f));
-	glm::mat4 view = glm::mat4(1.0f);
-
-
-	// note that we're translating the scene in the reverse direction of where we want to move
-	//glm::vec3 cpos = glm::vec3(0.0f, 0.0f, -3.0f);
-	//view = camera.getWorldToViewMatrix(); //*glm::translate(view, cpos);
-	//view = glm::translate(view, cpos);
 	glm::mat4 projection = camera.getProjectionMatrices();
-	//glm::mat4 projection = glm::perspective(glm::radians(45.0f), (float)(800 / 600), 0.1f, 100.0f);
 
 
 
@@ -123,7 +111,6 @@ int main(){
 
 
 	noe::ShapeRenderer shapeRenderer;
-
 
 	noe::Triangle triangle1;
 	triangle1.setVertices(glm::vec3(-1.0f, 0.0f, 0.0f), glm::vec3(1.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
@@ -134,10 +121,30 @@ int main(){
 	rectangle1.setPosition(glm::vec3(-1,-1,0));
 	
 
+
+
+	ImGui::CreateContext();
+	ImGuiIO& io = ImGui::GetIO(); (void)io;
+	
+	ImGui::StyleColorsDark();
+
+
+	ImGui_ImplGlfw_InitForOpenGL(window, true);
+	ImGui_ImplOpenGL3_Init("#version 330");
+
+	bool show_demo_window = true;
+	bool show_another_window = false;
+	ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
+
+
+	
 	while(!glfwWindowShouldClose(window)){
+		shapeRenderer.clear();
 
+		ImGui_ImplOpenGL3_NewFrame();
+		ImGui_ImplGlfw_NewFrame();
+		ImGui::NewFrame();
 
-		
 
 		float currentFrame = glfwGetTime();
 		deltaTime = currentFrame - lastFrame;
@@ -152,15 +159,49 @@ int main(){
 		shapeRenderer.clear();
 
 		shapeRenderer.begin();
-		//shapeRenderer.drawTriangle(triangle1);
 		shapeRenderer.drawTriangle(glm::vec3(1.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(0.0f, 0.0f, 1.0f), glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
 		shapeRenderer.drawTriangle(glm::vec3(1.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(0.0f, 0.0f, -1.0f), glm::vec4(0.0f, 0.0f, 1.0f, 1.0f));
-		//shapeRenderer.drawRect(rectangle1);
 		shapeRenderer.end();
-		//camera.setYaw(0.1f);
-		std::cout << "(" << camera.getYaw() << ", " << camera.getPitch() << ")]" << std::endl;
+		//std::cout << "(" << camera.getYaw() << ", " << camera.getPitch() << ")]" << std::endl;
 		camera.update();
-		shapeRenderer.setMatrices(model, view, camera.getProjectionMatrices());
+		shapeRenderer.setMatrices(glm::mat4(1.0f), glm::mat4(1.0f), camera.getProjectionMatrices());
+
+
+		//ImGui::ShowDemoWindow(&show_demo_window);
+		{
+			static float f = 0.0f;
+			static int counter = 0;
+
+			ImGui::Begin("Hello, world!");                          // Create a window called "Hello, world!" and append into it.
+
+			ImGui::Text("This is some useful text.");               // Display some text (you can use a format strings too)
+			ImGui::Checkbox("Demo Window", &show_demo_window);      // Edit bools storing our window open/close state
+			ImGui::Checkbox("Another Window", &show_another_window);
+
+			ImGui::SliderFloat("float", &f, 0.0f, 1.0f);            // Edit 1 float using a slider from 0.0f to 1.0f
+			ImGui::ColorEdit3("clear color", (float*)&clear_color); // Edit 3 floats representing a color
+
+			if(ImGui::Button("Button"))                            // Buttons return true when clicked (most widgets return true when edited/activated)
+				counter++;
+			ImGui::SameLine();
+			ImGui::Text("counter = %d", counter);
+
+			ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
+			ImGui::End();
+		}
+
+
+		int display_w, display_h;
+		ImGui::Render();
+		glfwMakeContextCurrent(window);
+		glfwGetFramebufferSize(window, &display_w, &display_h);
+		
+		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+
+
+
+
+
 
 
 		glfwSwapBuffers(window);
@@ -190,39 +231,29 @@ void cameraControl(noe::PerspectiveCamera& camera, glm::mat4 &_projection, float
 		if(s_pressed){
 			std::cout << "s action" << std::endl;
 			camera.translate(noe::Camera::DIRECTION::BACKWARD, deltaTime);
-
-			//_view = glm::translate(_view, glm::vec3(0, 0, -_speed * 8));
 		}
 		if(a_pressed){
 			std::cout << "a action" << std::endl;
 			camera.translate(noe::Camera::DIRECTION::LEFT, deltaTime);
-			//_projection = glm::rotate(_projection, glm::radians(_speed * 100), glm::vec3(0.0f, -1.0f, 0.0f));
 
 		}
 		if(d_pressed){
 			std::cout << "d action" << std::endl;
 			camera.translate(noe::Camera::DIRECTION::RIGHT, deltaTime);
-			//_model = glm::rotate(_model, glm::radians(_speed * 100), glm::vec3(0.0f, 1.0f, 0.0f));
-
 		}
 	} else{
 		if(w_pressed){
 			std::cout << "t_w action" << std::endl;
-			//_model = glm::rotate(_model, glm::radians(_speed * 100), glm::vec3(1.0f, 0.0f, -1.0f));
 		}
 		if(s_pressed){
 			std::cout << "t_s action" << std::endl;
-			//_model = glm::rotate(_model, glm::radians(_speed * 100), glm::vec3(-1.0f, 0.0f, 1.0f));
 		}
 		if(a_pressed){
 			std::cout << "t_a action" << std::endl;
-			//_model = glm::rotate(_model, glm::radians(_speed * 100), glm::vec3(1.0f, 1.0f, -1.0f));
 
 		}
 		if(d_pressed){
 			std::cout << "t_d action" << std::endl;
-			//_model = glm::rotate(_model, glm::radians(_speed * 100), glm::vec3(-1.0f, -1.0f, 1.0f));
-
 		}
 
 	}

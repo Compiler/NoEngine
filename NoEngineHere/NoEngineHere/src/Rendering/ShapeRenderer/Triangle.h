@@ -13,6 +13,7 @@ namespace noe{
 		void setVertices(glm::vec3 vertex1, glm::vec3 vertex2, glm::vec3 vertex3);
 
 
+
 		
 		
 		

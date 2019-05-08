@@ -2,8 +2,9 @@
 #include "Camera.h"
 
 #include <iostream>
+
 namespace noe{
-	class PerspectiveCamera: Camera{
+	class PerspectiveCamera : Camera{
 
 
 	public:
@@ -15,6 +16,7 @@ namespace noe{
 
 		void rotate(float angleDegrees, const glm::vec3& axisOfRotation);
 		void translate(DIRECTION direction, float deltaTime);
+		void translate(const glm::vec3& translation);
 		void control3DHeadMovement(float xoffset, float yoffset, bool constrainPitch = true);
 		void setYaw(float yaw){ _yaw += yaw; }
 		void setPitch(float pitch){ _pitch += pitch; }

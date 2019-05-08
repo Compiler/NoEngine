@@ -20,12 +20,6 @@ namespace noe{
 
 
 	void PerspectiveCamera::rotate(float angleDegrees, const glm::vec3& axisOfRotation){
-		//p_cameraDirection.x = cos(glm::radians(angleDegrees)) * cos(glm::radians(Pitch));
-		//p_cameraDirection.y = sin(glm::radians(angleDegrees));
-		//p_cameraDirection.z = sin(glm::radians(angleDegrees)) *  cos(glm::radians(Pitch));
-		
-		//p_cameraDirection = glm::rotate(p_cameraDirection, glm::radians(angleDegrees), axisOfRotation);
-		//p_projection = glm::rotate(p_projection, glm::radians(angleDegrees), axisOfRotation);
 	}
 
 	void PerspectiveCamera::update(){
@@ -34,12 +28,7 @@ namespace noe{
 		front.x = cos(glm::radians(_yaw)) * cos(glm::radians(_pitch));
 		front.y = sin(glm::radians(_pitch));
 		front.z = sin(glm::radians(_yaw)) * cos(glm::radians(_pitch));
-		//p_cameraDirection.x = cos(glm::radians(_yaw)) * cos(glm::radians(_pitch));
-		//p_cameraDirection.y = sin(glm::radians(_pitch));
-		//p_cameraDirection.z = sin(glm::radians(_yaw)) *  cos(glm::radians(_pitch));
 
-
-		//p_cameraDirection = glm::normalize(p_cameraDirection);
 		p_cameraDirection = glm::normalize(front);
 		_cameraRight = glm::normalize(glm::cross(p_cameraDirection, _worldUp));
 		_cameraUp = glm::normalize(glm::cross(_cameraRight, p_cameraDirection));
@@ -58,15 +47,19 @@ namespace noe{
 			p_cameraPosition += _cameraRight * velocity;
 	}
 
+	void PerspectiveCamera::translate(const glm::vec3& translation){
+		p_cameraPosition += translation;
+	}
+
 
 	void PerspectiveCamera::control3DHeadMovement(float xoffset, float yoffset, bool constrainPitch){
 		xoffset *= 0.1f;
 		yoffset *= 0.1f;
 
-		std::cout << _yaw << " + " << xoffset << " = ";
+		//std::cout << _yaw << " + " << xoffset << " = ";
 		this->_yaw += xoffset;
 		this->_pitch += yoffset;
-		std::cout << _yaw << std::endl;
+		//std::cout << _yaw << std::endl;
 
 		if(constrainPitch){
 			if(this->_pitch > 89.0f)

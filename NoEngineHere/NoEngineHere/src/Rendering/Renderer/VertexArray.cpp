@@ -28,12 +28,6 @@ namespace noe{
 			glEnableVertexAttribArray(1);
 		}
 		
-	//	for(unsigned int i = 0; i < elements.size(); i++){
-			//const VertexBufferElement& element = elements[i];
-			//glEnableVertexAttribArray(i);
-			//glVertexAttribPointer(i, element.count, element.type, element.normalized, 0, (const void*)offset);//f f f  c c c  c c c  c c c
-			//offset += element.count * VertexBufferElement::sizeOfType(element.type);
-		//}
 
 	}
 
