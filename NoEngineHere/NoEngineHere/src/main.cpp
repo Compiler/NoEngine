@@ -36,13 +36,20 @@ bool firstMouse = true;
 float lastX = 1280 / 2.0f;
 float lastY = 720 / 2.0f;
 
-int width = 1280;
-int height = 720;
+int myWidth = 1280;
+int myHeight = 720;
 
-noe::PerspectiveCamera camera(width, height, glm::vec3(0.0f, 0.0f, 3.0f));
+noe::PerspectiveCamera camera(myWidth, myHeight, glm::vec3(0.0f, 0.0f, 3.0f));
 
 void cameraControl(noe::PerspectiveCamera& camera, glm::mat4 &_projection, float _speed);
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode);
+
+
+void framebuffer_size_callback(GLFWwindow* window, int width, int height){
+	myWidth = width;
+	myHeight = height;
+	glViewport(0, 0, width, height);
+}
 
 // glfw: whenever the mouse moves, this callback is called
 void mouse_callback(GLFWwindow* window, double xpos, double ypos){
@@ -61,14 +68,16 @@ void mouse_callback(GLFWwindow* window, double xpos, double ypos){
 	//camera.control3DHeadMovement(xoffset, yoffset);
 }
 
+void applyStyle();
+
 
 int main(){
 	glfwInit(); //start glfw
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);//setting context to 3.?
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);//setting context to ?.3      = 3.3
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
-	GLFWwindow *window = glfwCreateWindow(width, height, "NoEngine ", nullptr, nullptr);//returns pointer to GLFWwindow object
+	glfwWindowHint(GLFW_RESIZABLE, GL_TRUE);
+	GLFWwindow *window = glfwCreateWindow(myWidth, myHeight, "NoEngine ", nullptr, nullptr);//returns pointer to GLFWwindow object
 	glEnable(GL_DEPTH_TEST);
 	// Accept fragment if it closer to the camera than the former one
 	glDepthFunc(GL_LESS);
@@ -78,6 +87,7 @@ int main(){
 		glfwTerminate();
 		return -1;
 	}
+
 	//create context from the window
 	glfwMakeContextCurrent(window);
 	glfwSwapInterval(1);
@@ -90,8 +100,9 @@ int main(){
 
 	//int width, height;
 	//glfwGetFramebufferSize(window, &width, &height);
-	glViewport(0, 0, width, height);
-	std::cout << width;
+	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
+	glViewport(0, 0, myWidth, myHeight);
+	std::cout << myWidth;
 
 
 	glfwSetCursorPosCallback(window, mouse_callback);
@@ -125,6 +136,7 @@ int main(){
 
 	ImGui::CreateContext();
 	ImGuiIO& io = ImGui::GetIO(); (void)io;
+	//io.ConfigFlags = 
 	
 	ImGui::StyleColorsDark();
 
@@ -134,8 +146,11 @@ int main(){
 
 	bool show_demo_window = true;
 	bool show_another_window = false;
-	ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
+	glm::vec4 clearColor = glm::vec4(0.086f, 0.376f, 0.529f, 1);
 
+
+	
+	applyStyle();
 
 	
 	while(!glfwWindowShouldClose(window)){
@@ -156,45 +171,83 @@ int main(){
 
 		glfwPollEvents();
 
-		shapeRenderer.clear();
+		shapeRenderer.clear(clearColor.r, clearColor.g, clearColor.b, clearColor.a);
 
-		shapeRenderer.begin();
-		shapeRenderer.drawTriangle(glm::vec3(1.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(0.0f, 0.0f, 1.0f), glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
-		shapeRenderer.drawTriangle(glm::vec3(1.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(0.0f, 0.0f, -1.0f), glm::vec4(0.0f, 0.0f, 1.0f, 1.0f));
-		shapeRenderer.end();
+		//shapeRenderer.begin();
+		//shapeRenderer.drawTriangle(glm::vec3(1.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(0.0f, 0.0f, 1.0f), glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
+		//shapeRenderer.drawTriangle(glm::vec3(1.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(0.0f, 0.0f, -1.0f), glm::vec4(0.0f, 0.0f, 1.0f, 1.0f));
+		//shapeRenderer.end();
 		//std::cout << "(" << camera.getYaw() << ", " << camera.getPitch() << ")]" << std::endl;
 		camera.update();
 		shapeRenderer.setMatrices(glm::mat4(1.0f), glm::mat4(1.0f), camera.getProjectionMatrices());
 
 
-		//ImGui::ShowDemoWindow(&show_demo_window);
-		{
+		ImGui::ShowDemoWindow(&show_demo_window);
+		if(true){
 			static float f = 0.0f;
 			static int counter = 0;
 
-			ImGui::Begin("Hello, world!");                          // Create a window called "Hello, world!" and append into it.
 
-			ImGui::Text("This is some useful text.");               // Display some text (you can use a format strings too)
-			ImGui::Checkbox("Demo Window", &show_demo_window);      // Edit bools storing our window open/close state
-			ImGui::Checkbox("Another Window", &show_another_window);
+			//menu
+			ImGui::BeginMainMenuBar();
+			float mainHeight = ImGui::GetWindowHeight();
+			float ratioAllowed = 6;
+			float bottomPad = (myHeight / ratioAllowed);
 
-			ImGui::SliderFloat("float", &f, 0.0f, 1.0f);            // Edit 1 float using a slider from 0.0f to 1.0f
-			ImGui::ColorEdit3("clear color", (float*)&clear_color); // Edit 3 floats representing a color
+			if(ImGui::BeginMenu("File")){
+				if(ImGui::MenuItem("New", "ctrl + n", false, true)){
+				
+				}
+				if(ImGui::MenuItem("Save", "ctrl + s", false, true)){
+				
+				}
 
-			if(ImGui::Button("Button"))                            // Buttons return true when clicked (most widgets return true when edited/activated)
-				counter++;
-			ImGui::SameLine();
-			ImGui::Text("counter = %d", counter);
 
-			ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
+				ImGui::EndMenu();
+			
+			}
+
+			ImGui::EndMainMenuBar();
+			ImGui::SetNextWindowPos(ImVec2(0, myHeight - bottomPad));
+			ImGui::SetNextWindowSize(ImVec2(myWidth, bottomPad));
+			ImGui::Begin("Console", 0, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoCollapse);
 			ImGui::End();
+
+			ImGui::SetNextWindowPos(ImVec2(0, mainHeight));
+			ImGui::SetNextWindowSize(ImVec2(myWidth / ratioAllowed, myHeight - mainHeight - bottomPad));
+
+			ImGui::Begin("Toolbar", 0, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize);
+			if(ImGui::CollapsingHeader("ShapeRenderer")){
+
+
+			}
+
+
+			if(ImGui::CollapsingHeader("Renderer")){
+				ImGui::BeginGroup();
+				ImGui::ColorPicker4("Clear color", &clearColor.x);
+				ImGui::EndGroup();
+			}
+
+			ImGui::End();
+
+
+
+			ImGui::SetNextWindowPos(ImVec2(myWidth - (myWidth / ratioAllowed), mainHeight));
+			ImGui::SetNextWindowSize(ImVec2((myWidth / ratioAllowed), myHeight - mainHeight - bottomPad));
+			ImGui::Begin("Properties", 0, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize);
+			
+
+			ImGui::End();
+			
+
 		}
 
 
-		int display_w, display_h;
+		//int display_w, display_h;
 		ImGui::Render();
 		glfwMakeContextCurrent(window);
-		glfwGetFramebufferSize(window, &display_w, &display_h);
+		//glfwGetFramebufferSize(window, &display_w, &display_h);
 		
 		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
@@ -219,6 +272,21 @@ int main(){
 	return 0;
 }
 
+void applyStyle(){
+
+	ImGuiStyle* style = &ImGui::GetStyle();
+	style->Colors[ImGuiCol_WindowBg] = ImVec4(0.039f, 0.039f, 0.039f, 1);
+	style->Colors[ImGuiCol_TitleBg] = ImVec4(0.094f, 0.024f, 0.302f, 1);
+	style->Colors[ImGuiCol_TitleBgActive] = ImVec4(0.129f, 0.094f, 0.58f, 1);
+	style->Colors[ImGuiCol_MenuBarBg] = ImVec4(0.475f, 0.031f, 1, 1);
+
+	style->Colors[ImGuiCol_Header] = ImVec4(0.478f, 0.094f, 0.635f, 1);
+	style->Colors[ImGuiCol_Border] = ImVec4(0.325f, 0, 0.73f, 0.5f);
+
+
+
+
+}
 
 void cameraControl(noe::PerspectiveCamera& camera, glm::mat4 &_projection, float _speed){
 

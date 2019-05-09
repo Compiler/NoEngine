@@ -84,8 +84,8 @@ namespace noe{
 	}
 
 
-	void ShapeRenderer::clear() const {
-		_renderer.clear();
+	void ShapeRenderer::clear(float r, float g, float b, float a) const {
+		_renderer.clear(r, g, b, a);
 	}
 
 

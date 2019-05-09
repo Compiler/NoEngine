@@ -54,7 +54,7 @@ namespace noe{
 
 		void doSomeFuckingShit();
 
-		void clear() const;
+		void clear(float r = 0.3f, float g = 0.3f, float b = 0.3f, float a = 1.0f) const;
 
 
 		void setMatrices(glm::mat4 model, glm::mat4 view, glm::mat4 projection);
