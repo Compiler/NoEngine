@@ -10,8 +10,16 @@ c:\noengine\noenginehere\noenginehere\debug\indexbuffer.obj
 c:\noengine\noenginehere\noenginehere\debug\perspectivecamera.obj
 c:\noengine\noenginehere\noenginehere\debug\main.obj
 c:\noengine\noenginehere\noenginehere\debug\renderer.obj
-c:\noengine\noenginehere\debug\noenginehere.ilk
+c:\noengine\noenginehere\noenginehere\debug\imgui_widgets.obj
+c:\noengine\noenginehere\noenginehere\debug\imgui_draw.obj
+c:\noengine\noenginehere\noenginehere\debug\imgui_demo.obj
+c:\noengine\noenginehere\noenginehere\debug\imgui.obj
+c:\noengine\noenginehere\noenginehere\debug\imgui_impl_glfw.obj
+c:\noengine\noenginehere\noenginehere\debug\imgui_impl_opengl3.obj
+c:\noengine\noenginehere\noenginehere\debug\editor.obj
+c:\noengine\noenginehere\noenginehere\debug\scenemanager.obj
 c:\noengine\noenginehere\debug\noenginehere.exe
+c:\noengine\noenginehere\debug\noenginehere.ilk
 c:\noengine\noenginehere\debug\noenginehere.pdb
 c:\noengine\noenginehere\noenginehere\debug\noenginehere.tlog\cl.command.1.tlog
 c:\noengine\noenginehere\noenginehere\debug\noenginehere.tlog\cl.read.1.tlog

@@ -148,7 +148,7 @@ int main(){
 	bool show_another_window = false;
 	glm::vec4 clearColor = glm::vec4(0.086f, 0.376f, 0.529f, 1);
 
-
+	const char* thing = "nipples";
 	
 	applyStyle();
 
@@ -218,15 +218,29 @@ int main(){
 
 			ImGui::Begin("Toolbar", 0, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize);
 			if(ImGui::CollapsingHeader("ShapeRenderer")){
-
+				ImGui::Button("ShapeRenderer");
+				if(ImGui::IsItemActive())
+					thing = "ShapeRenderer\0";
 
 			}
 
 
 			if(ImGui::CollapsingHeader("Renderer")){
-				ImGui::BeginGroup();
-				ImGui::ColorPicker4("Clear color", &clearColor.x);
-				ImGui::EndGroup();
+				ImGui::Button("Renderer");
+				if(ImGui::IsItemActive())
+					thing = "Renderer\0";
+				ImGuiStyle& style = ImGui::GetStyle();
+
+				ImGui::BeginChild("##colors", ImVec2(0, 0), true);
+				//ImGui::PushItemWidth(-160);
+				ImGui::ColorEdit4("Clear color", &clearColor.x, ImGuiColorEditFlags_AlphaBar);
+				ImGui::SameLine(0.0f, style.ItemInnerSpacing.x); ImGui::SameLine(0.0f, style.ItemInnerSpacing.x);
+
+
+				ImGui::SameLine(0.0f, style.ItemInnerSpacing.x);
+				//ImGui::TextUnformatted("dude fuck");
+				//ImGui::PopItemWidth();
+				ImGui::EndChild();
 			}
 
 			ImGui::End();
@@ -235,7 +249,14 @@ int main(){
 
 			ImGui::SetNextWindowPos(ImVec2(myWidth - (myWidth / ratioAllowed), mainHeight));
 			ImGui::SetNextWindowSize(ImVec2((myWidth / ratioAllowed), myHeight - mainHeight - bottomPad));
-			ImGui::Begin("Properties", 0, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize);
+
+			char name[100] = "Properties - ";
+			int i = 0;
+			for(i = 0; i < 80; i++) if(thing[i] != '\0') name[i + 13] = thing[i];
+			name[i + 13] = '\0';
+			ImGui::Begin(name, 0, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize);
+			ImGui::Text(thing);
+			
 			
 
 			ImGui::End();
@@ -282,6 +303,11 @@ void applyStyle(){
 
 	style->Colors[ImGuiCol_Header] = ImVec4(0.478f, 0.094f, 0.635f, 1);
 	style->Colors[ImGuiCol_Border] = ImVec4(0.325f, 0, 0.73f, 0.5f);
+
+
+
+
+	style->WindowRounding = 0.0f;
 
 
 

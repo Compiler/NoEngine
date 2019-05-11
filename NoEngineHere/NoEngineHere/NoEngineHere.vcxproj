@@ -128,6 +128,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Utils\Scenes\SceneManager.cpp" />
+    <ClCompile Include="src\Editor\Editor.cpp" />
     <ClCompile Include="src\externs\imgui\imgui.cpp" />
     <ClCompile Include="src\externs\imgui\imgui_demo.cpp" />
     <ClCompile Include="src\externs\imgui\imgui_draw.cpp" />
@@ -146,6 +148,8 @@
     <ClCompile Include="src\Rendering\Renderer\VertexArray.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Utils\Scenes\SceneManager.h" />
+    <ClInclude Include="src\Editor\Editor.h" />
     <ClInclude Include="src\externs\imgui\imconfig.h" />
     <ClInclude Include="src\externs\imgui\imgui.h" />
     <ClInclude Include="src\externs\imgui\imgui_impl_glfw.h" />
@@ -167,6 +171,7 @@
     <ClInclude Include="src\Rendering\Renderer\VertexBuffer.h" />
     <ClInclude Include="src\Rendering\Renderer\VertexArray.h" />
     <ClInclude Include="src\Rendering\Renderer\VertexBufferLayout.h" />
+    <ClInclude Include="src\Utils\Scenes\Scene.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="src\Rendering\Shaders\glsl\shader_v.glsl" />
