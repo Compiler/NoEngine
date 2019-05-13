@@ -151,6 +151,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\externs\stb\stb_image.h" />
+    <ClInclude Include="src\Rendering\Renderer\Sprites\Sprite.h" />
     <ClInclude Include="src\Rendering\Renderer\Sprites\SpriteBatch.h" />
     <ClInclude Include="src\Utils\Scenes\SceneManager.h" />
     <ClInclude Include="src\Editor\Editor.h" />
@@ -185,6 +186,9 @@
     <None Include="src\Rendering\Shaders\glsl\shader_f.glsl" />
     <None Include="src\Rendering\Shaders\glsl\shapeRenderer_passthrough_f.glsl" />
     <None Include="src\Rendering\Shaders\glsl\shapeRenderer_passthrough_v.glsl" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="src\Assets\images\Fog.PNG" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

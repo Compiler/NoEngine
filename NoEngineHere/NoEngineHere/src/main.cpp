@@ -24,6 +24,8 @@
 #include "externs/imgui/imgui_impl_glfw.h"
 #include "externs/imgui/imgui_impl_opengl3.h"
 
+#include "Rendering/Renderer/Sprites/Texture.h"
+
 bool w_pressed, s_pressed, a_pressed, d_pressed, rotToggle;
 
 
@@ -132,6 +134,13 @@ int main(){
 	rectangle1.setPosition(glm::vec3(-1,-1,0));
 	
 
+	noe::Shader shade(vertexShaderPath, fragmentShaderPath);
+	shade.bind();
+	
+
+	noe::Texture texture("Assets/images/Fog.PNG");
+	texture.bind();
+	shade.setUniform1i("u_texture", 0);
 
 
 
