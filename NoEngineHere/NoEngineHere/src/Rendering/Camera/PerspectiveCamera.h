@@ -4,7 +4,7 @@
 #include <iostream>
 
 namespace noe{
-	class PerspectiveCamera : Camera{
+	class PerspectiveCamera : public Camera{
 
 
 	public:

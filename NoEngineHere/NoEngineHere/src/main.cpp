@@ -134,6 +134,8 @@ int main(){
 
 
 
+
+
 	ImGui::CreateContext();
 	ImGuiIO& io = ImGui::GetIO(); (void)io;
 	//io.ConfigFlags = 
@@ -148,7 +150,7 @@ int main(){
 	bool show_another_window = false;
 	glm::vec4 clearColor = glm::vec4(0.086f, 0.376f, 0.529f, 1);
 
-	const char* thing = "nipples";
+	const char* thing = "Camera";
 	
 	applyStyle();
 

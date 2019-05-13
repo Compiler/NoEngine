@@ -6,7 +6,7 @@ namespace noe{
 
 	class SceneManager{
 	private:
-		Scene _currentScene;
+		//Scene _currentScene;
 		std::vector<Scene> _scenes;
 
 

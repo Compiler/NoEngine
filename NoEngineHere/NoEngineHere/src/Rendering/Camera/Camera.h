@@ -17,10 +17,10 @@ namespace noe{
 
 		//	translate x,y,z amount
 		virtual void translate(const glm::vec3& translation) = 0;
+		virtual void translate(DIRECTION direction, float deltaTime) = 0;
 
 		/*	rotate angleDegrees around axisOfRotation
 			example: 45, (1,0,0) = 45 degrees around x axis	*/
-		virtual void translate(DIRECTION direction, float deltaTime) = 0;
 
 
 		// lookAt the position.. duh
@@ -28,10 +28,8 @@ namespace noe{
 
 
 		virtual glm::mat4 getProjectionMatrices() const = 0;
+		virtual glm::mat4 getWorldToViewMatrix() const = 0;
 
-
-	private:
-		void update();
 
 
 	protected:
